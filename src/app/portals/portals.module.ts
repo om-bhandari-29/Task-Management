@@ -20,6 +20,7 @@ import { PaginationComponent } from '../home/commonComponent/pagination/paginati
 import { CreateTaskComponent } from '../home/create-task/create-task.component';
 import { superAdminAuthGuard } from '../Guards/super-admin-auth.guard';
 import { adminAuthGuard } from '../Guards/admin-auth.guard';
+import { adminASuperAdminGuard } from '../Guards/admin-asuper-admin.guard';
 
 
 const routes: Routes = [
@@ -27,10 +28,10 @@ const routes: Routes = [
   { path: 'profile', component: UserDetailsComponent, canActivate: [generalAuthGuard], canDeactivate: [profileSaveGuard] },
   { path: 'departments', component: DepartmentComponent, canActivate: [generalAuthGuard, superAdminAuthGuard] },
   { path: 'departments/:id', component: UserListComponent, canActivate: [generalAuthGuard, superAdminAuthGuard] },
-  { path: 'allEmployee', component: UserListComponent, canActivate: [generalAuthGuard, superAdminAuthGuard || adminAuthGuard] },
+  { path: 'allEmployee', component: UserListComponent, canActivate: [generalAuthGuard, adminASuperAdminGuard] },
   { path: 'myTasks', component: TasksComponent, canActivate: [generalAuthGuard] },
   { path: 'myTasks/:id', component: CreateTaskComponent, canActivate: [generalAuthGuard] },
-  { path: 'assignTask', component: CreateTaskComponent, canActivate: [generalAuthGuard, superAdminAuthGuard || adminAuthGuard] },
+  { path: 'assignTask', component: CreateTaskComponent, canActivate: [generalAuthGuard, adminASuperAdminGuard] },
 ];
 
 @NgModule({

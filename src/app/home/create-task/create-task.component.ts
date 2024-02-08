@@ -84,7 +84,8 @@ export class CreateTaskComponent implements OnInit {
   }
 
   public submit() {
-    if (this.uId) {
+    this.createTaskFormGroup.markAllAsTouched();
+    if (this.uId && this.createTaskFormGroup.valid) {
       this.showLoader = true;
       let newTask: createNewtask = {
         title: this.createTaskFormGroup.controls.title.value,
@@ -99,7 +100,7 @@ export class CreateTaskComponent implements OnInit {
           if (res.statusCode == 0) {
             this.toastrService.success("Task Assigned Successfully");
           }
-          this.ngOnInit();
+          this.router.navigate(['/portal/myTasks'], {queryParams: {page: 1, search: '', take: 5, taskStatus: null}});
         },
         error: (err) => {
           console.log(err);
@@ -126,12 +127,13 @@ export class CreateTaskComponent implements OnInit {
           next: () => {
             this.createTaskFormGroup.reset();
             this.toastrService.success("Task Updated Successfully");
-            this.router.navigate(['../../myTasks'],
-              {
-                relativeTo: this.activatedRoute,
-                queryParams: { page: 1, search: '', take: 5}
-              }
-            )
+            this.router.navigate(['/portal/myTasks'], {queryParams: {page: 1, search: '', take: 5, taskStatus: null}});
+            // this.router.navigate(['../../myTasks'],
+            //   {
+            //     relativeTo: this.activatedRoute,
+            //     queryParams: { page: 1, search: '', take: 5}
+            //   }
+            // )
           },
           error: (err) => {
             console.log(err);

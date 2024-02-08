@@ -152,8 +152,6 @@ export class TasksComponent implements OnInit {
       employeeId: task.employeeId
     }
 
-    console.log(this.router.url);
-
     localStorage.setItem("editTask", JSON.stringify(taskL));
     // this.router.navigate([`/myTasks/edit/${task.id}`]);
     this.router.navigate([`/portal/myTasks/${task.id}`]);

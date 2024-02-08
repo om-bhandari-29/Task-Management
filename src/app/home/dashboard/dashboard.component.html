@@ -5,11 +5,7 @@
     <app-cards [title]="'Portal Profile'">
     </app-cards>
   </a>
-  <a routerLink="/profile">
-    <app-cards [title]="'Profile'">
-    </app-cards>
-  </a>
-
+  
   <ng-container>
     <a *ngIf="employeeType == 'SuperAdmin' && !showLoaderE" routerLink="/portal/departments">
       <app-cards [title]="'Departments'" [text]=" 'Department Count: ' + departmentCount " >
