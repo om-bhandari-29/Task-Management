@@ -3,12 +3,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/Services/auth.service';
 import { getUserData, response3 } from 'src/app/Generics/GenericResponse';
 import { user } from 'src/app/Models/user.model';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { SignupFormModel } from 'src/app/Models/signup.model';
 import { ToastrService } from 'ngx-toastr';
 import { userDetailsModel } from 'src/app/Models/userDetail.model';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, of } from 'rxjs';
 
 @Component({
   selector: 'app-user-details',
@@ -29,14 +28,13 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   public userDetailsFormGroup: FormGroup<userDetailsModel> = this.initializeUserDetailsFormGroup();
 
-  public isChangesSaved = new BehaviorSubject<boolean>(true);
+  // public isChangesSaved = new BehaviorSubject<boolean>(true);
+  public hasChangesSaved$ = new BehaviorSubject<boolean>(true);
 
   ngOnInit(): void {
 
-    this.isChangesSaved.next(true);
-
-    // console.log(this.userDetailsFormGroup);
-    
+    // this.isChangesSaved.next(true);
+    this.hasChangesSaved$.next(true);
 
     if (this.router.url != 'dashboard') {
       this.isShowOptionComponent = true;
@@ -44,7 +42,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
     this.auth.getUserDetail().subscribe({
       next: (res: getUserData<user>) => {
-        this.loggedInUserData = res.data;       
+        this.loggedInUserData = res.data;
         this.showLoader = false;
 
         const userDetails = {
@@ -70,18 +68,19 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   public editDetails(val: boolean) {
     this.isEdit = val;
-    this.isChangesSaved.next(false);
+    // this.isChangesSaved.next(false);
+    this.hasChangesSaved$.next(false);
   }
   public cancelEditDetails(val: boolean) {
     this.isEdit = val;
-    this.isChangesSaved.next(true);
-    // this.router.navigate(['/profile']);
-    // this.ngOnInit();
+    // this.isChangesSaved.next(true);
+    this.hasChangesSaved$.next(true);
   }
 
   public submit() {
-    
-    this.isChangesSaved.next(true);
+
+    // this.isChangesSaved.next(true);
+    this.hasChangesSaved$.next(true);
     let id = this.loggedInUserData?.id;
     this.isEdit = false;
 
@@ -95,16 +94,12 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       phone: this.userDetailsFormGroup.controls.phone.value,
       departmentID: this.userDetailsFormGroup.controls.departmentID.value,
     }
-    
-    // console.log(userDetails);
-    // let id  = this.userDetailsFormGroup.controls.employeeType.value;
 
-    if(this.userDetailsFormGroup.valid){
-      
-      if(id){
-        // console.log(id);
+    if (this.userDetailsFormGroup.valid) {
+
+      if (id) {
         this.showLoader = true;
-        
+
         this.auth.editDetails(id, userDetails).subscribe({
           next: (res: response3) => {
             if (res.statusCode == 200) {
@@ -112,7 +107,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
               this.showLoader = false;
               this.ngOnInit();
             }
-    
+
           },
           error: (err) => {
             console.log("err : ", err);
@@ -140,26 +135,19 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  public showFormError(control: AbstractControl, error: string): boolean{    
-    return this.isSubmitted && (control.errors?.[error] == error)? true: false;
-  }
-  
-  public showChangesAlert(){
-    // if(this.isEdit){
-      alert("Please save the changes");
-
-    //   return false;
-    // }
-    // return true;
+  public showFormError(control: AbstractControl, error: string): boolean {
+    return this.isSubmitted && (control.errors?.[error] == error) ? true : false;
   }
 
+  public showChangesAlert() {
+    alert("Please save the changes");
+  }
+
+  public isChangesSavedUnsubscribe() {
+    // this.isChangesSaved.unsubscribe();
+    this.hasChangesSaved$.unsubscribe();
+  }
   ngOnDestroy(): void {
-    // console.log(this.userDetailsFormGroup.dirty);
-    // if(this.isEdit && this.userDetailsFormGroup.dirty){
-      
-    // }
-    // else if(this.isEdit){
-    //   alert("Cancel it, if you don't want to make changes");
-    // }
+    //  this.isChangesSaved.unsubscribe();
   }
 }

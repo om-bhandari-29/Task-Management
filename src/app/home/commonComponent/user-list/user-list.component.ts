@@ -62,7 +62,7 @@ export class UserListComponent implements OnInit {
               
               res.iterableData.map(
                 (emp: user) =>{                  
-                  if(emp.departmentID == this.departID && emp.employeeType != 2){
+                  if(emp.departmentID == this.departID){
                     this.allEmployeeList.push(emp);             
                   }
                 }
@@ -77,44 +77,12 @@ export class UserListComponent implements OnInit {
       }
     )
 
-    // if(!this.isDepartEmployeeRoute){
-    //   this.auth.getAllEmployee(this.userListM).subscribe({
-    //     next: (res: response<user>)=>{
-    //       this.allEmployeeList = [];
-    //       res.iterableData.map(
-    //         (emp: user) =>{
-    //           this.allEmployeeList.push(emp);
-    //         }
-    //       )
-    //       this.showLoader = false;
-    //     },
-  
-    //     error: (err)=>{
-    //       console.log(err);
-    //     }
-    //   })
-    // } 
-
     if(!this.isEmployee && this.departID == -1){
       this.auth.getAllEmployee(this.userListM).subscribe({
         next: (res: response<user>)=>{
           this.allEmployeeList = [];
-          res.iterableData.map(
-            (emp: user) =>{
-              // super admin
-              if(this.lEmployeeType == "SuperAdmin"){
-                if(emp.employeeType != 2){
-                  this.allEmployeeList.push(emp);
-                }
-              }
-              // admin
-              else{
-                if(emp.employeeType==0 && emp.departmentID == this.departmentId){
-                  this.allEmployeeList.push(emp);
-                }
-              }
-            }
-          )
+          // console.log(res.iterableData);
+          this.allEmployeeList = res.iterableData;
           this.showLoader = false;
         },
   

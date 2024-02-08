@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { taskListModel } from 'src/app/Models/task.model';
 import { getAllEmployeeI, getAllTaskI } from 'src/app/Models/user.model';
 

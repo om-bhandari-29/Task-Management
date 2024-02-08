@@ -32,6 +32,7 @@ const routes: Routes = [
   { path: 'myTasks', component: TasksComponent, canActivate: [generalAuthGuard] },
   { path: 'myTasks/:id', component: CreateTaskComponent, canActivate: [generalAuthGuard] },
   { path: 'assignTask', component: CreateTaskComponent, canActivate: [generalAuthGuard, adminASuperAdminGuard] },
+  // { path: 'assignTask', component: CreateTaskComponent, canActivate: [generalAuthGuard, superAdminAuthGuard || adminAuthGuard] },
 ];
 
 @NgModule({

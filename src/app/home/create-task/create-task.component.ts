@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { partition } from 'rxjs';
-import { getUserData, response } from 'src/app/Generics/GenericResponse';
+import { response } from 'src/app/Generics/GenericResponse';
 import { getAllEmployeeI, user } from 'src/app/Models/user.model';
 import { createTaskModel, createTaskData, createNewtask, taskListModel } from 'src/app/Models/task.model';
 import { AuthService } from 'src/app/Services/auth.service';

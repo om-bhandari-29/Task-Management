@@ -117,12 +117,9 @@ export class TasksComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(
       (param: Params) =>{
-        // console.log(param);
         if(param['id']){
           this.isEditTask = true;
-        }
-        // console.log("this.isEditTask : ", this.isEditTask);
-        
+        }        
       }
     )
   }
@@ -200,14 +197,11 @@ export class TasksComponent implements OnInit {
 
   public fetchAllTask() {
     this.showLoader = true;
-    // console.log(this.filterTask.isCompleted);
 
     this.auth.getAllTask(this.filterTask).subscribe({
       next: (res: responseTask<taskListModel>) => {
         this.allTaskList = res.iterableData;
-        // console.log(res.iterableData);
 
-        // this.totalRecords = res.iterableData.length;
         this.totalRecords = res.count;
 
         this.isPreviousExists = false;
@@ -220,7 +214,6 @@ export class TasksComponent implements OnInit {
             this.isNextExists = false;
           }
           else {
-            // console.log(this.totalPages);
 
             if (this.totalPages > 3) {
               for (let i = 0; i < 3; i++) {
@@ -244,12 +237,9 @@ export class TasksComponent implements OnInit {
           }
           this.showLoader = false;
         }
-        else {
-          // this.showLoader = true;    
+        else {   
           this.fetchAllTaskHelper();
         }
-
-        // this.showLoader = false;
       },
       error: (err) => {
         console.log(err);
