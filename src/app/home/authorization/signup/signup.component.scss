@@ -1,0 +1,48 @@
+.parent {
+    height: 89vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-image: url('./../../../../assets/signUpbgImage.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.child {
+    background-color: wheat;
+    display: flex;
+    height: 500px;
+    width: 420px;
+    border-radius: 8px;
+}
+
+.signupForm{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.signupFormInput{
+    width: 226px;
+    height: 25px;
+    color: black;
+    font-size: 85%;
+    font-family: cursive;
+    border-radius: 8px;
+    border-color: brown;
+    padding-left: 5px;
+}
+
+.pdL-5{
+    padding-left: 7px;
+}
+.singupInputAsside{
+    padding-left: 6px;
+    padding-right: 6px;
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    justify-content: space-between;
+}

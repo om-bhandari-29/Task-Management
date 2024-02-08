@@ -1,0 +1,110 @@
+<div class="parent">
+    <div class="child mt-15">
+        <form class="signupForm" [formGroup]="signupFormGroup">
+            <div class=" mt-5 singupInputAsside">
+                <label>Name</label>
+                <span *ngIf="(signupFormGroup.controls.name.dirty || signupFormGroup.controls.name.touched)"
+                    class="showAlert">
+                    <span *ngIf="signupFormGroup.controls.name.errors?.['required']">
+                        *Required
+                    </span>
+                </span>
+                <input type="text" class="signupFormInput" formControlName="name">
+            </div>
+
+            <div class=" mt-15 m-3 singupInputAsside">
+                <label>Email</label>
+                <span *ngIf="signupFormGroup.controls.email.dirty || signupFormGroup.controls.email.touched"
+                    class="showAlert">
+                    <span *ngIf="signupFormGroup.controls.email.errors?.['required']">*Required</span>
+                    <span *ngIf="showError(signupFormGroup.controls.email, 'pattern')"> *Enter Valid Mail</span>
+                </span>
+                <input type="text" class="signupFormInput" formControlName="email">
+            </div>
+
+            <div class=" mt-15 m-3 singupInputAsside ">
+                <label>Password</label>
+                <span *ngIf="signupFormGroup.controls.password.dirty || signupFormGroup.controls.password.touched"
+                    class="showAlert">
+                    <span *ngIf="signupFormGroup.controls.password.errors?.['required']">*Required</span>
+                    <span *ngIf="isSubmitted && signupFormGroup.controls.password.errors?.['pattern']">
+                        *Password Should contain uppercase, lowercase, special case letter and number
+                    </span>
+                    <span *ngIf="isSubmitted && signupFormGroup.controls.password.errors?.['minlength']">
+                        *Length Should be 8
+                    </span>
+                </span>
+                <input type="password" class="signupFormInput" formControlName="password">
+            </div>
+
+            <div class=" mt-15 m-3 singupInputAsside ">
+                <label>Confirm Password</label>
+                <span
+                    *ngIf="signupFormGroup.controls.confirmPassword.dirty || signupFormGroup.controls.confirmPassword.touched"
+                    class="showAlert">
+                    <span *ngIf="signupFormGroup.controls.confirmPassword.errors?.['required']; else misMatchErr">*Required</span>
+                    <ng-template #misMatchErr>
+                        <span *ngIf="isSubmitted && signupFormGroup.errors?.['passwordMismatchError']">
+                            Password doesn't matches
+                        </span>
+                    </ng-template>
+                </span>
+                <input type="password" class="signupFormInput" formControlName="confirmPassword">
+            </div>
+
+
+            <div class=" mt-15 m-3 singupInputAsside">
+                <label>Address</label>
+                <span *ngIf="(signupFormGroup.controls.address.dirty || signupFormGroup.controls.address.touched)"
+                    class="showAlert">
+                    <span *ngIf="signupFormGroup.controls.address.errors?.['required']">*Required</span>
+                </span>
+                <input type="text" class="signupFormInput" formControlName="address">
+            </div>
+
+            <div class=" mt-15 m-3 singupInputAsside">
+                <label>City</label>
+                <span *ngIf="(signupFormGroup.controls.city.dirty || signupFormGroup.controls.city.touched)"
+                    class="showAlert">
+                    <span *ngIf="signupFormGroup.controls.city.errors?.['required']">*Required</span>
+                </span>
+                <input type="text" class="signupFormInput" formControlName="city">
+            </div>
+
+            <div class=" mt-15 m-3 singupInputAsside">
+                <label>Country</label>
+                <span *ngIf="(signupFormGroup.controls.country.dirty || signupFormGroup.controls.country.touched)"
+                    class="showAlert">
+                    <span *ngIf="signupFormGroup.controls.country.errors?.['required']">*Required</span>
+                </span>
+                <input type="text" class="signupFormInput" formControlName="country">
+            </div>
+
+
+            <div class=" mt-15 m-3 singupInputAsside">
+                <label>Phone</label>
+                <!-- <div class="containerColoum"> -->
+                <span *ngIf="(signupFormGroup.controls.phone.dirty || signupFormGroup.controls.phone.touched)"
+                    class="showAlert">
+                    <span *ngIf="signupFormGroup.controls.phone.errors?.['required']">*Required</span>
+                    <span *ngIf="showError(signupFormGroup.controls.phone, 'pattern')">*Enter Valid Phone Number</span>
+                </span>
+                <input type="number" class="signupFormInput" formControlName="phone">
+                <!-- </div> -->
+            </div>
+
+            <div class=" mt-15 m-3 singupInputAsside">
+                <label>Department </label>
+                <select class="signupFormInput" formControlName="departmentID">
+                    <ng-container *ngFor="let depart of allDepartListService">
+                        <!-- <option value={{depart.id}}>{{depart.departmentName}} </option> -->
+                        <option [ngValue]="depart.id">{{depart.departmentName}} </option>
+                    </ng-container>
+                </select>
+            </div>
+
+            <button class="mt-30 m-3 btn" type="submit" (keydown.enter)="singupUser()"
+                (click)="singupUser()">Signup</button>
+        </form>
+    </div>
+</div>

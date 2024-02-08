@@ -1,0 +1,113 @@
+.createTask {
+    width: 101px;
+    height: 35px;
+    border-radius: 21px;
+    margin-left: 5px;
+    font-family: cursive;
+    font-weight: 600;
+}
+
+.createTask:hover {
+    cursor: pointer;
+}
+
+.centreItem {
+    display: flex;
+    align-items: center;
+}
+
+.mainDiv {
+    width: 100%;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    // padding: 2px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.hideInput{
+    border: none;
+    background-color: transparent;
+}
+.showInput{
+    outline: none;
+    box-shadow: 0px 0px 5px #61C5FA;
+    border:1px solid #5AB0DB;
+}
+
+.spaceBetween{
+    padding-bottom: 10%;
+}
+
+select{
+    option{
+        p{
+            display: block;
+            // padding: px;
+
+        }
+    }
+}
+
+.submitBtn{
+    width: max-content;
+    border-radius: 9px;
+    background-color: lightgreen;
+    height: max-content;
+    cursor: pointer;
+    font-family: cursive;
+}
+
+.submitBtn:hover{
+    font-weight: bold;
+}
+
+.active{
+    background-color: blueviolet;
+    color: white;
+}
+
+.nextSetBtn{
+    border-radius: 8px;
+    margin-top: 4px;
+    margin-left: 9px;
+    cursor: pointer;
+}
+
+.showTask{
+    display: none;
+}
+
+.tableScroll {
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+// table, td, th {  
+//     border: 1px solid #ddd;
+//     text-align: left;
+//   }
+  
+//   table {
+//     border-collapse: collapse;
+//     width: 80%;
+//   }
+//   th, td {
+//     padding: 6px;
+//   }
+  
+//   tr:nth-child(even) {
+//     background-color: #dddddd;
+//   }

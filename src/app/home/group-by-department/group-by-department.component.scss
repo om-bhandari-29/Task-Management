@@ -1,0 +1,32 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.addDepartBtn{
+    height: 32px;
+    width: 131px;
+    border-radius: 13px;
+    font-family: cursive;
+    font-size: 14px;
+    font-weight: 600;
+    // margin-left: 4px;
+    margin: 4px 6px 5px;
+}
+
+.addDepartBtn:hover{
+    cursor: pointer;
+}
+

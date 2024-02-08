@@ -1,0 +1,44 @@
+<app-options [show]=true></app-options>
+
+<!-- <div style="display: flex; flex-direction: row;"> -->
+    <div style="width: 100%; justify-content: center;">
+    
+        <div>
+            <input  type="text" #departName (keydown.enter)="onKeyDownEvent($event, departName)">
+            <button class="addDepartBtn btn-success" (click)="addDepartment(departName)">Add Department</button>
+        </div>
+        
+        <app-loader *ngIf="showLoader"></app-loader>
+        <div style="display: flex; margin-top: 10px;">
+            <table *ngIf="!showLoader" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>S. No</th>
+                        <th>Name</th>
+                        <th>Employees Count</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+        
+                <tbody>
+                    <tr *ngFor="let depart of departmentList, let i = index">
+                        <td> {{i+1}} </td>
+                        <td> {{depart.departmentName}} </td>
+                        <td> {{depart.employeesCount}} </td>
+                        <td>
+                            <button class="btn btn-danger" (click)="deleteDepartMent(depart.id)" >Delete</button>
+                            <button style="margin-left: 5px;" class="btn" (click)="showMore(depart.id)" >Details</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    
+        <app-error *ngIf="showError"></app-error>
+    </div>
+    
+    
+    <!-- <div style="width: 60%;">
+        <router-outlet></router-outlet>
+    </div> -->
+<!-- </div> -->

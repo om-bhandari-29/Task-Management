@@ -1,0 +1,82 @@
+.parent {
+    height: 70vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    // background-image: url('./../../../../assets/signUpbgImage.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.child {
+    background-color: wheat;
+    display: flex;
+    height: 400px;
+    width: 450px;
+    border-radius: 8px;
+}
+
+.signupForm{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.signupFormInput{
+    width: 226px;
+    height: 25px;
+    color: black;
+    font-size: 85%;
+    font-family: cursive;
+    border-radius: 8px;
+    border-color: brown;
+    // padding-left: 150px;
+    margin-left: 100px;
+}
+
+.pdL-5{
+    padding-left: 7px;
+}
+.singupInputAsside{
+    padding-left: 6px;
+    padding-right: 6px;
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+    justify-content: space-between;
+    align-items:  center;
+}
+
+
+
+
+// .divMain {
+//     display: flex;
+//     width: 100%;
+//     flex-direction: column;
+// }
+
+// .itemDiv {
+//     display: flex;
+//     width: 100%;
+//     justify-content: space-between;
+// }
+
+// table {
+//     font-family: arial, sans-serif;
+//     border-collapse: collapse;
+//     width: 100%;
+// }
+
+// td,
+// th {
+//     border: 1px solid #dddddd;
+//     text-align: left;
+//     padding: 8px;
+// }
+
+// tr:nth-child(even) {
+//     background-color: #dddddd;
+// }

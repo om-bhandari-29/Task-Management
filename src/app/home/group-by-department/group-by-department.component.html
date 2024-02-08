@@ -1,0 +1,21 @@
+<app-options [show]=true ></app-options>
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>S. No</th>
+                <th>Department Name</th>
+                <th>Employees Count</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let depart of groupByDepartMentList; let i=index">
+                <td> {{i+1}} </td>
+                <td> {{depart.departmentName}} </td>
+                <td> {{depart.employeesCount}} </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

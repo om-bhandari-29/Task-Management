@@ -1,0 +1,74 @@
+<app-options [show]=true></app-options>
+
+<app-loader *ngIf="showLoader"></app-loader>
+
+<div class="mr-30 ml-30" *ngIf="!showLoader">
+    <form [formGroup]="createTaskFormGroup">
+        <div class="createTaskI mt-15">
+            <label>Enter Task name</label>
+
+            <div class="containerColoum">
+                <input type="text" formControlName="title" >
+                <span *ngIf="createTaskFormGroup.controls.title.touched || createTaskFormGroup.controls.title.dirty" >
+                    <span *ngIf="createTaskFormGroup.controls.title.errors?.['required']" class="showAlert">
+                        *Field is Required
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        <div class="createTaskI mt-15">
+            <label>Enter Task description</label>
+
+            <div class="containerColoum">
+                <textarea formControlName="description" cols="30" rows="2"></textarea>
+                <span *ngIf="createTaskFormGroup.controls.description.touched || createTaskFormGroup.controls.description.dirty">
+                    <span *ngIf="createTaskFormGroup.controls.description.errors?.['required']" class="showAlert">
+                        *Field is required
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        <div class="createTaskI mt-15">
+            <label>Select Employee</label>
+
+            <div class="containerColoum">
+                <select formControlName="employeeId">
+                    <option value={{emp.id}} *ngFor="let emp of allEmployeeLlist">{{emp.name}} </option>
+                    <!-- <ng-container *ngFor="let emp of allEmployeeLlist">
+                        <option *ngIf="(loggedInEmployeeType == 2 && emp.employeeType != 2); else showAccDep" value= {{emp.id}}>
+                            {{emp.name}},  
+                            {{emp.email}}
+                        </option>
+                        <ng-template #showAccDep>
+                            <option *ngIf="(emp.employeeType == 0)" value= {{emp.id}}>
+                                {{emp.name}},  
+                                {{emp.email}}
+                            </option>
+                        </ng-template>
+                    </ng-container> -->
+                </select>
+                <span *ngIf="createTaskFormGroup.controls.employeeId.touched || createTaskFormGroup.controls.employeeId.dirty">
+                    <span *ngIf="createTaskFormGroup.controls.employeeId.errors?.['required']" class="showAlert">
+                        *Field is required
+                    </span>
+                </span>
+            </div>
+
+        </div>
+        <div *ngIf="taskId" class="createTaskI mt-15">
+            <label >Task Status</label>
+            <select formControlName="isCompleted">
+                <option [ngValue]=true>Completed</option>
+                <option [ngValue]=false>Incomplete</option>
+            </select>
+        </div>
+
+        <div style="width: 100%; text-align: center;" class="mt-15">
+            <!-- <button *ngIf="uId == -1" class="btn" (click)="submit()">Submit</button> -->
+            <button  class="btn" (click)="submit()">Submit</button>
+            <!-- <button *ngIf="uId != -1" class="btn" (click)="assignTask()">Assign task</button> -->
+        </div>
+    </form>
+</div>

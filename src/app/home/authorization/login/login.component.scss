@@ -1,0 +1,33 @@
+.parent {
+    height: 90vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./../../../../assets/loginBgImage.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    flex-direction: column;
+}
+
+.child {
+    background-color: wheat;
+    display: flex;
+    height: 220px;
+    width: 302px;
+    border-radius: 8px;
+}
+
+.signupForm{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.loginInput{
+    padding-left: 7px;
+    font-family: cursive;
+    font-weight: 500;
+}

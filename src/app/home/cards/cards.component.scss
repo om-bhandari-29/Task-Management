@@ -1,0 +1,21 @@
+.cardTitle{
+  font-size: large;
+}
+
+.cardDiv{
+  display: flex;
+  height: 200px;
+  width: 150px;
+  background-color: antiquewhite;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  text-align: center;
+  flex-direction: column;
+}
+.cardDiv:hover{
+  .cardTitle{
+    font-weight: bold;
+    font-family: cursive;
+  }
+}

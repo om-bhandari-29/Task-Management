@@ -1,0 +1,23 @@
+.headerNav{
+    height: 50px;
+    background-color: lightblue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 9px;
+    flex-direction: row;
+}
+
+.lSbtn{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.active{
+    color: whitesmoke;
+    background-color: brown;
+    border-radius: 3px;
+}

@@ -1,0 +1,200 @@
+<app-options [show]=true></app-options>
+<div class="mainDiv">
+
+  <button (click)="createTaskShow()">{{hideCreateString}}</button>
+  <div *ngIf="!isEmployee" [ngClass]="{'showTask': !isCreatetask}">
+    <div class="mr-30 ml-30">
+      <form [formGroup]="createTaskFormGroup">
+        <div class="createTaskI mt-15">
+          <label>Enter Task name</label>
+
+          <div class="containerColoum">
+            <input type="text" formControlName="title">
+            <span *ngIf="createTaskFormGroup.controls.title.touched || createTaskFormGroup.controls.title.dirty">
+              <span *ngIf="createTaskFormGroup.controls.title.errors?.['required']" class="showAlert">
+                *Field is Required
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="createTaskI mt-15">
+          <label>Enter Task description</label>
+
+          <div class="containerColoum">
+            <textarea formControlName="description" cols="30" rows="2"></textarea>
+            <span
+              *ngIf="createTaskFormGroup.controls.description.touched || createTaskFormGroup.controls.description.dirty">
+              <span *ngIf="createTaskFormGroup.controls.description.errors?.['required']" class="showAlert">
+                *Field is required
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="createTaskI mt-15">
+          <label>Select Employee</label>
+
+          <div class="containerColoum">
+            <select formControlName="employeeId">
+              <ng-container *ngFor="let emp of allEmployeeLlist" class="spaceBetween">
+
+                <option *ngIf="loggedInEmployeeType == 2; else showAccDep" value={{emp.id}}>
+                  {{emp.name}},
+                  {{emp.email}}
+                </option>
+
+                <ng-template #showAccDep>
+                  <option *ngIf="(emp.employeeType == 0)" value={{emp.id}}>
+                    {{emp.name}},
+                    {{emp.email}}
+                  </option>
+                </ng-template>
+
+              </ng-container>
+            </select>
+            <span
+              *ngIf="createTaskFormGroup.controls.employeeId.touched || createTaskFormGroup.controls.employeeId.dirty">
+              <span *ngIf="createTaskFormGroup.controls.employeeId.errors?.['required']" class="showAlert">
+                *Field is required
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div style="width: 100%; text-align: center;" class="mt-15">
+          <button class="btn" (click)="submit()">Submit</button>
+          <button class="btn" (click)="clear()">Clear</button>
+        </div>
+      </form>
+    </div>
+    <br>
+    <br>
+  </div>
+
+
+  <div style="margin-top: 8px;">
+    <div>
+      <input type="text" [(ngModel)]="filterTask.search" (keydown.enter)="onKeyDownEvent($event)">
+      <a routerLink="/portal/myTasks" [queryParams]="{page: 1, search: filterTask.search, take: 5, taskStatus: ''}">
+        <button style="cursor: pointer;" type="submit">Search
+        </button>
+      </a>
+    </div>
+
+
+    <app-loader *ngIf="showLoader"></app-loader>
+
+
+    <p *ngIf="!showLoader">Total Records : {{totalRecords}}</p>
+    <div *ngIf="allTaskList.length == 0 && !showLoader ; else showRecords">
+      <h1>No Records Found</h1>
+    </div>
+    <ng-template #showRecords>
+      <div *ngIf="!showLoader" class="tableScroll">
+        <table>
+          <thead>
+            <tr>
+              <th>S.No</th>
+
+              <th>
+                Title
+                <app-arrow-up *ngIf="!isTitleAsscending" (sortTaskChild)="sort($event)"
+                  [title]="'Title'"></app-arrow-up>
+                <app-arrow-down *ngIf="!isTitleDescending" (sortTaskChild)="sort($event)"
+                  [title]="'Title'"></app-arrow-down>
+              </th>
+
+              <th>
+                Description
+                <app-arrow-up *ngIf="!isDescriptionAsscending" (sortTaskChild)="sort($event)"
+                  [title]="'Description'"></app-arrow-up>
+                <app-arrow-down *ngIf="!isDescriptionDescending" (sortTaskChild)="sort($event)"
+                  [title]="'Description'"></app-arrow-down>
+              </th>
+
+              <th *ngIf="!isEmployee">Assigned To</th>
+              <th> Task Status:
+                <select *ngIf="!showLoader" style="margin-left: 10px;" [(ngModel)]="filterTask.isCompleted"
+                  (change)="getTaskBystatus()">
+                  <option [ngValue]="null">All</option>
+                  <option [ngValue]=true>Completed</option>
+                  <option [ngValue]=false>Incompleted</option>
+                </select>
+              </th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+
+          <tbody>
+            <tr *ngFor="let task of allTaskList; let i=index">
+              <ng-container>
+                <td>{{(i+1) + filterTask.index * filterTask.take}} </td>
+
+                <td>
+                  <p>{{task.title}}</p>
+                </td>
+                <td>
+                  <p *ngIf="task.description!=null && task.description.length <= 35">{{task.description}} </p>
+
+                  <ng-container *ngIf="task.description!=null && task.description.length > 35">
+                    <p>
+                      {{task.description | slice:0:25}}
+                    </p>
+
+                    <p #showMoreCon style="display: none;">
+                      {{task.description | slice:25}}
+                      <button (click)="showLess(showMoreCon, showMoreBtn)">show less</button>
+                    </p>
+                    <button #showMoreBtn (click)="showMore(showMoreCon, showMoreBtn)">show more </button>
+                  </ng-container>
+
+                </td>
+
+                <td *ngIf="!isEmployee">
+                  {{task.employeeName}}
+                </td>
+
+                <td [ngStyle]="{color: (task.isCompleted)? 'green': 'voilet'}">
+                  {{(task.isCompleted)? "Completed": "Incomplete"}}
+                </td>
+                <td *ngIf="!isEmployee">
+                  <ng-container *ngIf="!editBtnIsClicked">
+                    <Button (click)="deleteTask(task.id)" class="btn btn-danger m-3">Delete</Button>
+                    <p *ngIf="task.isCompleted; else shoeEditBtn" style="font-size: smaller; color: green;">Task Already
+                      Completed, Unable to edit</p>
+                    <ng-template #shoeEditBtn>
+                      <Button class="btn m-3" (click)="editTask(task)">Edit </Button>
+                    </ng-template>
+                  </ng-container>
+                </td>
+
+                <td *ngIf="isEmployee">
+                  <button *ngIf="!task.isCompleted; else allReadyCompleted" class="submitBtn"
+                    (click)="completeTaskBtn(task)">Mark As Completed</button>
+                  <ng-template #allReadyCompleted>
+                    <h4 style="color: green;">Hurray! Already Completed</h4>
+                    <button (click)="markIncomplete(task)">Undo</button>
+                  </ng-template>
+                </td>
+              </ng-container>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </ng-template>
+
+    <!-- PAGINATION -->
+    <app-pagination [filterObj]="filterTask" [allTaskListChild]="allTaskList"
+      [currentPageSetsChild]="currentPageSets" [isPreviousExistsChild]="isPreviousExists"
+      [isNextExistsChild]="isNextExists" [pageChild]="page" (getTaskPerPageChild)="getTaskPerPageEvent($event)"
+      (getPreviousEventChild)="getPreviousEvent($event)" (getNextEventChild)="getNextEvent($event)"
+      (getClickedpageEventChild)="getClickedpageEvent($event)">
+    </app-pagination>
+
+
+  </div>
+</div>
+

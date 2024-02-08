@@ -1,1 +1,102 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import 'ngx-toastr/toastr';
+
+a{
+    text-decoration: none;
+}
+
+li{
+    list-style: none;
+}
+
+// MARGIN
+.mt-15{
+    margin-top: 15px;
+}
+.mt-30{
+    margin-top: 30px;
+} 
+.m-3{
+    margin: 3px;
+}
+.m-5{
+    margin: 5px;
+}
+
+.mr-30{
+    margin-right: 30px;
+}
+.ml-30{
+    margin-left: 30px;
+}
+
+.showAlert{
+    color: red;
+    font-weight: bold;
+}
+
+.divFull{
+    justify-content: space-between;
+    display: flex;
+    width: 100%;
+}
+
+.btn{
+    height: fit-content;
+    // width: 75px;
+    width: max-content;
+    border-radius: 16px;
+    // color: white;
+    font-size: medium;
+    font-weight: 650;
+}
+
+.btn:hover{
+    cursor: pointer;
+    // font-family: cursive;
+}
+
+.btn-danger{
+    background-color: rgb(239, 110, 110);
+}
+.btn-success:hover{
+    background-color: lightgreen;
+}
+
+.btn-danger:hover{
+    cursor: pointer;
+    // font-weight: 600;
+    // font-size: large;
+}
+
+.centreH3{
+    width: 100%;
+    text-align: center;
+}
+
+.containerColoum{
+    display: flex;
+    flex-direction: column;
+}
+
+.active{
+    background-color: aqua;
+    border-radius: 8px;
+}
+
+.div-22{
+    width: 22%;
+}
+.div-74{
+    width: 74%;
+    padding: 2% 2% 2% 2%;
+}
+
+.removeBorder{
+    background-color: transparent;
+    border: 0px solid;
+    height: 20px;
+    width: 160px;
+    color: #CCC;
+}

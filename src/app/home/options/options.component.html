@@ -1,0 +1,24 @@
+<div *ngIf="show" class="divOption">
+  <a routerLink="/portal/profile" routerLinkActive="activeOption">
+    <li>Profile</li>
+  </a>
+
+  <a *ngIf="employeeType == 'SuperAdmin'" routerLink="/portal/departments" routerLinkActive="activeOption">
+    <li>Department</li>
+  </a>
+
+
+  <a routerLink="/portal/myTasks" routerLinkActive="activeOption"
+    [queryParams]="{page: 1, search: '', take: 5, taskStatus: null}">
+    <li>Task</li>
+  </a>
+
+  <a *ngIf="(employeeType == 'SuperAdmin') || (employeeType == 'Admin')" routerLink="/portal/allEmployee"
+    routerLinkActive="activeOption">
+    <li>All Employee</li>
+  </a>
+
+  <a routerLink="/portal" >
+    <li>Portal</li>
+  </a>
+</div>
