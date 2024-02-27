@@ -19,6 +19,7 @@ export class SignupComponent implements OnInit {
   constructor(private auth: AuthService, private router: Router, private toastrService: ToastrService){}
   public allDepartListService: departmentIterable[] = [];
   public isSubmitted: boolean = false;
+  public isShowSbnt: boolean = false;
   
   ngOnInit(): void {
     this.isSubmitted = false;
@@ -41,6 +42,7 @@ export class SignupComponent implements OnInit {
     this.signupFormGroup.markAllAsTouched();
 
     if(this.signupFormGroup.valid){
+      this.isShowSbnt = true;
       const signupUser: SignupFormData = {
         name: this.signupFormGroup.controls.name.value,
         email: this.signupFormGroup.controls.email.value,
@@ -57,10 +59,12 @@ export class SignupComponent implements OnInit {
         next: (v: Response) => {        
           if(v.statusCode == 201){
             this.toastrService.success("SignedUp success");
+            this.isShowSbnt = false;
             this.router.navigate(['/login'])
           }
         },
-        error: (err) => {          
+        error: (err) => {    
+          this.isShowSbnt = false;      
           this.toastrService.error(err.message);
         }  
       })

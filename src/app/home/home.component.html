@@ -1,46 +1,51 @@
-<!-- <nav>
-    <div class="headerNav">
-        <div class="lSbtn">
-            <ng-container *ngIf="!isL" >
-                <a  routerLink="/login" ><button routerLinkActive="active" class="btn">Login</button></a>
-                <a  routerLink="/register" ><button routerLinkActive="active" class="btn" >Register</button></a>
-            </ng-container>
-
-            <div *ngIf="isL">
-                <h1>Welcome {{loggedInUserName}} </h1>
-            </div>
-        </div>
-    
-        <div>
-            <a routerLink="" *ngIf="isL"><button class="btn mr-30" (click)="logOut()" >Logout</button></a>
-        </div>
-    </div>
-</nav>
-
-<ngx-ui-loader></ngx-ui-loader>
-<router-outlet></router-outlet> -->
-
-<nav style="margin-bottom: 10px;">
+<!-- <nav style="margin-bottom: 10px;">
     <a>
         <div class="headerNav">
             <div class="lSbtn">
-                <ng-container *ngIf="!isL" >
-                    <a  routerLink="/login" ><button routerLinkActive="active" class="btn">Login</button></a>
-                    <a  routerLink="/register" ><button routerLinkActive="active" class="btn" >Register</button></a>
+                <ng-container *ngIf="!isL">
+                    <a routerLink="/login"><button routerLinkActive="active" class="btn">Login</button></a>
+                    <a routerLink="/register"><button routerLinkActive="active" class="btn">Register</button></a>
                 </ng-container>
-    
+
                 <div *ngIf="isL">
-                    <h1>Welcome {{loggedInUserName}} </h1>
+                    <h3>Welcome {{loggedInUserName}} </h3>
                 </div>
             </div>
-        
+
             <div>
-                <a *ngIf="isL"><button class="btn mr-30" (click)="logOut()" >Logout</button></a>
+                <a *ngIf="isL"><button class="btn mr-30" (click)="logOut()">Logout</button></a>
             </div>
         </div>
     </a>
-</nav>
+</nav> -->
 
-<!-- <ngx-ui-loader></ngx-ui-loader> -->
-<router-outlet></router-outlet>
 
+
+
+<!-- <header class="mb-10"> -->
+
+  <nav *ngIf="!isL" class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+    <div class="container-fluid">
+      <button data-mdb-collapse-init class="navbar-toggler" type="button" data-mdb-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          <li *ngIf="!isL" class="nav-item">
+            <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+          </li>
+
+          <li *ngIf="!isL" class="nav-item">
+            <a class="nav-link" routerLink="/register" routerLinkActive="active">Sign up</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+
+  <router-outlet></router-outlet>

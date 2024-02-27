@@ -1,8 +1,10 @@
 <app-options [show]=true></app-options>
 <div class="mainDiv">
 
-  <button (click)="createTaskShow()">{{hideCreateString}}</button>
-  <div *ngIf="!isEmployee" [ngClass]="{'showTask': !isCreatetask}">
+  <button  *ngIf="!isEmployee" (click)="createTaskShow()">{{hideCreateString}}</button>
+  <a *ngIf="isEmployee" routerLink="/portal/drag-drop"><button class="ml-30">Drag</button></a>
+
+  <div [ngClass]="{'showTask': !isCreatetask}">
     <div class="mr-30 ml-30">
       <form [formGroup]="createTaskFormGroup">
         <div class="createTaskI mt-15">
@@ -90,7 +92,106 @@
     <div *ngIf="allTaskList.length == 0 && !showLoader ; else showRecords">
       <h1>No Records Found</h1>
     </div>
+
+    <!-- NEWSKDFASDF -->
     <ng-template #showRecords>
+      <div  style="margin-left: 20px;" *ngIf="!showLoader" class="tableScroll">
+        <table *ngIf="!showLoader" style="width: 100%;" class="table table-bordered">
+            <thead>
+              <tr>
+                <th>S.No</th>
+  
+                <th>
+                  Title
+                  <app-arrow-up *ngIf="!isTitleAsscending" (sortTaskChild)="sort($event)"
+                    [title]="'Title'"></app-arrow-up>
+                  <app-arrow-down *ngIf="!isTitleDescending" (sortTaskChild)="sort($event)"
+                    [title]="'Title'"></app-arrow-down>
+                </th>
+  
+                <th>
+                  Description
+                  <app-arrow-up *ngIf="!isDescriptionAsscending" (sortTaskChild)="sort($event)"
+                    [title]="'Description'"></app-arrow-up>
+                  <app-arrow-down *ngIf="!isDescriptionDescending" (sortTaskChild)="sort($event)"
+                    [title]="'Description'"></app-arrow-down>
+                </th>
+  
+                <th *ngIf="!isEmployee">Assigned To</th>
+                <th> Task Status:
+                  <select *ngIf="!showLoader" style="margin-left: 10px;" [(ngModel)]="filterTask.isCompleted"
+                    (change)="getTaskBystatus()">
+                    <option [ngValue]="null">All</option>
+                    <option [ngValue]=true>Completed</option>
+                    <option [ngValue]=false>Incompleted</option>
+                  </select>
+                </th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="line-height: 12px;" *ngFor="let task of allTaskList; let i=index">
+                <ng-container>
+                  <td>{{(i+1) + filterTask.index * filterTask.take}} </td>
+  
+                  <td>
+                    <p>{{task.title}}</p>
+                  </td>
+                  <td>
+                    <p *ngIf="task.description!=null && task.description.length <= 35">{{task.description}} </p>
+  
+                    <ng-container *ngIf="task.description!=null && task.description.length > 30">
+                      <p>
+                        {{task.description | slice:0:30}}
+                      </p>
+  
+                      <p #showMoreCon style="display: none;">
+                        {{task.description | slice:25}}
+                        <a (click)="showLess(showMoreCon, showMoreBtn)" class="cPointer">show less </a>
+                      </p>
+                      <a #showMoreBtn (click)="showMore(showMoreCon, showMoreBtn)" class="cPointer">show more </a>
+                    </ng-container>
+  
+                  </td>
+  
+                  <td *ngIf="!isEmployee">
+                    {{task.employeeName}}
+                  </td>
+  
+                  <td [ngStyle]="{color: (task.isCompleted)? 'green': 'voilet'}">
+                    {{(task.isCompleted)? "Completed": "Incomplete"}}
+                  </td>
+                  <td *ngIf="!isEmployee">
+                    <ng-container *ngIf="!editBtnIsClicked">
+                      <i class='bx bx-trash cPointer' (click)="deleteTask(task.id)"></i>
+                      <p *ngIf="task.isCompleted; else shoeEditBtn" style="font-size: smaller; color: green;">Task Already
+                        Completed, Unable to edit</p>
+                      <ng-template #shoeEditBtn>
+                        <!-- <i class='bx bx-show ml-30 cPointer' (click)="editTask(task)"></i> -->
+                        <i class='bx bxs-edit-alt ml-30 cPointer' (click)="editTask(task)"></i>
+                      </ng-template>
+                    </ng-container>
+                  </td>
+  
+                  <td *ngIf="isEmployee">
+                    <button *ngIf="!task.isCompleted; else allReadyCompleted" class="submitBtn"
+                      (click)="completeTaskBtn(task)">Mark As Completed</button>
+                    <ng-template #allReadyCompleted>
+                      <p style="color: green;">Hurray! Already Completed</p>
+                      <button (click)="markIncomplete(task)">Undo</button>
+                    </ng-template>
+                  </td>
+                </ng-container>
+              </tr>
+            </tbody>
+        </table>
+    
+        <app-error *ngIf="showError"></app-error>
+    </div>
+    </ng-template>
+
+
+    <!-- <ng-template #showRecords>
       <div *ngIf="!showLoader" class="tableScroll">
         <table>
           <thead>
@@ -162,6 +263,7 @@
                 <td *ngIf="!isEmployee">
                   <ng-container *ngIf="!editBtnIsClicked">
                     <Button (click)="deleteTask(task.id)" class="btn btn-danger m-3">Delete</Button>
+                    
                     <p *ngIf="task.isCompleted; else shoeEditBtn" style="font-size: smaller; color: green;">Task Already
                       Completed, Unable to edit</p>
                     <ng-template #shoeEditBtn>
@@ -184,12 +286,11 @@
           </tbody>
         </table>
       </div>
-    </ng-template>
+    </ng-template> -->
 
     <!-- PAGINATION -->
-    <app-pagination [filterObj]="filterTask" [allTaskListChild]="allTaskList"
-      [currentPageSetsChild]="currentPageSets" [isPreviousExistsChild]="isPreviousExists"
-      [isNextExistsChild]="isNextExists" [pageChild]="page" (getTaskPerPageChild)="getTaskPerPageEvent($event)"
+    <app-pagination [filterObj]="filterTask" [totalRecordsChild]="totalRecords" [recordsPerPageC]="recordsPerPage"
+      [currntPageChild]="currentPage" (getTaskPerPageChild)="getTaskPerPageEvent($event)"
       (getPreviousEventChild)="getPreviousEvent($event)" (getNextEventChild)="getNextEvent($event)"
       (getClickedpageEventChild)="getClickedpageEvent($event)">
     </app-pagination>

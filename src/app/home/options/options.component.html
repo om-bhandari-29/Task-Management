@@ -1,4 +1,4 @@
-<div *ngIf="show" class="divOption">
+<!-- <div *ngIf="show" class="divOption">
   <a routerLink="/portal/profile" routerLinkActive="activeOption">
     <li>Profile</li>
   </a>
@@ -14,11 +14,132 @@
   </a>
 
   <a *ngIf="(employeeType == 'SuperAdmin') || (employeeType == 'Admin')" routerLink="/portal/allEmployee"
-    routerLinkActive="activeOption">
+    routerLinkActive="activeOption"  [queryParams]="{page: 1, search: '', take: 5}">
     <li>All Employee</li>
   </a>
 
   <a routerLink="/portal" >
     <li>Portal</li>
   </a>
-</div>
+
+  <a routerLink="/portal/notifications" routerLinkActive="activeOption" >
+    <li>Notifications</li>
+  </a>
+
+  <a routerLink="/portal/chats" routerLinkActive="activeOption" >
+    <li>Chats</li>
+  </a>
+</div>  -->
+
+
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+  <ul class="navbar-nav">
+
+    <li class="nav-item h6">
+      <a class="nav-link" routerLink="/portal/profile" routerLinkActive="activeOption">Profile
+      </a>
+    </li>
+
+    <li class="nav-item h6">
+      <a class="nav-link" *ngIf="employeeType == 'SuperAdmin'" routerLink="/portal/departments"
+        routerLinkActive="activeOption">Department
+      </a>
+    </li>
+
+    <li class="nav-item h6">
+      <a class="nav-link" routerLink="/portal/myTasks" routerLinkActive="activeOption"
+        [queryParams]="{page: 1, search: '', take: 5, taskStatus: null}">
+        Task
+      </a>
+    </li>
+
+    <li class="nav-item h6">
+      <a class="nav-link" *ngIf="(employeeType == 'SuperAdmin') || (employeeType == 'Admin')"
+        routerLink="/portal/allEmployee" routerLinkActive="activeOption" [queryParams]="{page: 1, search: '', take: 5}">
+        All Employee
+      </a>
+    </li>
+
+    <li class="nav-item h6">
+      <a class="nav-link" routerLink="/portal/notifications" routerLinkActive="activeOption">
+        Notifications
+      </a>
+    </li>
+
+    <li class="nav-item h6">
+      <a class="nav-link" routerLink="/portal/chats" routerLinkActive="activeOption">
+        Chats
+      </a>
+    </li>
+  </ul>
+
+  <ul style="position: absolute; margin-left: 93%; display: flex;">
+    <a style="margin-left: 10px;" class="nav-link" data-mdb-dropdown-init (click)="logOut()" role="button"
+      aria-expanded="false">
+      Logout
+    </a>
+  </ul>
+</nav> -->
+
+<!-- new -->
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+  <div class="container-fluid">
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item h6">
+          <a class="nav-link" routerLink="/portal/profile" routerLinkActive="activeOption">Profile
+          </a>
+        </li>
+
+        <li class="nav-item h6">
+          <a class="nav-link" *ngIf="employeeType == 'SuperAdmin'" routerLink="/portal/departments"
+            routerLinkActive="activeOption">Department
+          </a>
+        </li>
+
+        <li class="nav-item h6">
+          <a class="nav-link" routerLink="/portal/myTasks" routerLinkActive="activeOption"
+            [queryParams]="{page: 1, search: '', take: 5, taskStatus: null}">
+            Task
+          </a>
+        </li>
+
+        <li class="nav-item h6">
+          <a class="nav-link" *ngIf="(employeeType == 'SuperAdmin') || (employeeType == 'Admin')"
+            routerLink="/portal/allEmployee" routerLinkActive="activeOption"
+            [queryParams]="{page: 1, search: '', take: 5}">
+            All Employee
+          </a>
+        </li>
+
+        <li class="nav-item h6">
+          <a class="nav-link" routerLink="/portal/notifications" routerLinkActive="activeOption">
+            Notifications
+          </a>
+        </li>
+
+        <li class="nav-item h6">
+          <a class="nav-link" routerLink="/portal/chats" routerLinkActive="activeOption">
+            Chats
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="d-flex">
+      <li class="nav-item h6">
+       <h6> Welcome {{userName}}</h6>
+      </li>
+
+      <li style="margin-left: 10px;" class="nav-item h6">
+        <a style="margin-left: 10px;" class="nav-link" (click)="logOut()" role="button"
+          aria-expanded="false">
+          Logout
+        </a>
+      </li>
+    </div>
+  </div>
+</nav>

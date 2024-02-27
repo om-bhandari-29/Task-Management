@@ -11,9 +11,10 @@
 }
 
 .activeOption{
-  background-color: white;
-  margin-bottom: -29px;
-  height: 32px;
+  // background-color: white;
+  // margin-bottom: -29px;
+  // height: 32px;
+  color: blue;
 }
 
 .divOption{
@@ -25,4 +26,11 @@
       font-family: cursive;
     }
   }
+}
+
+.navbar{
+  height: 42px;
+  padding-top: 10px;
+
+  margin-bottom: 10px;
 }

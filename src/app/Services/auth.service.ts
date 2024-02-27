@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/Environments/environment';
 import { SignupFormData } from '../Models/signup.model';
-import { getUserData,response,response3,responseG, responseTask } from '../Generics/GenericResponse';
+import { getUserData,notification,response,response3,responseG, responseTask } from '../Generics/GenericResponse';
 import { departmentIterable } from '../Models/department.model';
 import { deleteDepartResponse } from '../Models/department.model';
 import { groupByDepartmentResponse } from '../Models/department.model';
@@ -81,9 +81,9 @@ export class AuthService {
   }
 
   // EMPLOYEE
-  public getAllEmployee(data: getAllEmployeeI): Observable<response<user>> {
+  public getAllEmployee(data: getAllEmployeeI): Observable<responseTask<user>> {
     const url = `${this.baseUrl}/api/employees`;
-    return this.httpClient.post<response<user>>(url, data);
+    return this.httpClient.post<responseTask<user>>(url, data);
   }
 
   // TASK
@@ -102,13 +102,22 @@ export class AuthService {
     return this.httpClient.post<responseTask<taskListModel>>(url, data);
   }
 
-  public completeTaskById(id: number, data: {isCompleted: boolean}){
+  public completeTaskById(id: number, data: {isCompleted: boolean}): Observable<response3>{
     const url = `${this.baseUrl}/api/todo/SetTodoCompleted/${id}`;
-    return this.httpClient.post(url, data);
+    return this.httpClient.post<response3>(url, data);
   }
 
   public editDetails(id: number, data: any): Observable<response3> {
     const url = `${this.baseUrl}/api/updateuser/${id}`;
     return this.httpClient.put<response3>(url, data);
+  }
+
+  public getNotifications(data: any): Observable<response<notification>> {
+    const url = `${this.baseUrl}/api/Notification/GetNotifications`;
+    return this.httpClient.post<response<notification>>(url, data);
+  }
+  public markNotificationAsRead(data: any): Observable<response<notification>> {
+    const url = `${this.baseUrl}/api/Notification/SetMarkAsRead`;
+    return this.httpClient.post<response<notification>>(url, data);
   }
 }

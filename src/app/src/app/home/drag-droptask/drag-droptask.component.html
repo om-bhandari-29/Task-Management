@@ -1,0 +1,94 @@
+<app-options [show]=true></app-options>
+
+
+<app-loader *ngIf="isShowLoader"></app-loader>
+
+<!-- <p *ngIf="!isShowLoader" style="text-align: center;">Drag and drop to make task complete or incomplete</p>
+<div *ngIf="!isShowLoader" class="container" style="display: flex; justify-content: space-between;">
+
+  <div class="example-container">
+    <h5>In-completed Task</h5>
+    <p>Count: {{inCompletedTask.length}} </p>
+
+    <div cdkDropList id="todo" [cdkDropListConnectedTo]="['done']"
+      class="example-list" (cdkDropListDropped)="drop($event)">
+
+      <div class="example-box" *ngFor="let task of inCompletedTask; let i=index;  trackBy: trackByInCompletedTask" cdkDrag>
+        <div style="font-weight: 900;">{{i+1}}.</div>
+        <div style="width: 100%;
+        padding-left: 5px;">{{task.title}}</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="example-container">
+    <h5>Completed Task</h5>
+    <p>Count: {{completedTask.length}} </p>
+
+    <div cdkDropList id="done" [cdkDropListConnectedTo]="['todo']"
+      class="example-list" (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let task of completedTask; let i=index; trackBy: trackByCompletedTask" cdkDrag>
+        <div style="font-weight: 900;">{{i+1}}.</div>
+        <div style="width: 100%;
+        padding-left: 5px;">{{task.title}}</div>
+        <div>
+          {{(task.assignBy == 2)?'Admin': 'Super Admin'}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<p *ngIf="!isShowLoader" style="text-align: center;">Drag and drop to make task complete or incomplete</p>
+<div *ngIf="!isShowLoader" class="container" style="display: flex; justify-content: space-between;">
+
+  <div class="example-container">
+    <h5>In-completed Task</h5>
+    <p>Count: {{inCompletedTask.length}} </p>
+
+    <div cdkDropList id="todo" [cdkDropListConnectedTo]="['done']"
+      class="example-list" (cdkDropListDropped)="drop($event)">
+
+      <div class="item" *ngFor="let task of inCompletedTask; let i=index;  trackBy: trackByInCompletedTask" cdkDrag>
+        <div style="font-weight: 900;">{{i+1}}.</div>
+        <div style="width: 100%;padding-left: 5px;">{{task.title}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-container">
+    <h5>Completed Task</h5>
+    <p>Count: {{completedTask.length}} </p>
+
+    <div cdkDropList id="done" [cdkDropListConnectedTo]="['todo']"
+      class="example-list" (cdkDropListDropped)="drop($event)">
+
+      <div class="item" *ngFor="let task of completedTask; let i=index; trackBy: trackByCompletedTask" cdkDrag>
+        <div style="font-weight: 900;">{{i+1}}.</div>
+        <div style="width: 100%;padding-left: 5px;">{{task.title}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 
+<div>
+  <div #dropListContainer class="example-container" cdkDropListGroup>
+    <div
+      *ngFor="let item of completedTask; let i = index"
+      cdkDropList
+      [cdkDropListData]="i"
+    >
+      <div
+        cdkDrag
+        [cdkDragData]="i"
+        (cdkDragEntered)="dragEntered($event)"
+        class="example-box"
+      >
+        {{ item.title }}
+      </div>
+    </div>
+  </div>
+  
+</div> -->

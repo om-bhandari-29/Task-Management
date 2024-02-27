@@ -1,8 +1,8 @@
-<div class="main">
+ <div class="main">
 
   
   <a routerLink="/portal/profile">
-    <app-cards [title]="'Portal Profile'">
+    <app-cards [title]="'Profile'">
     </app-cards>
   </a>
   
@@ -23,13 +23,13 @@
   </ng-container>
   
   <ng-container *ngIf="!isEmployee">
-    <a  *ngIf="!showLoaderT" routerLink="/portal/allEmployee">
+    <a  *ngIf="!showLoaderT" routerLink="/portal/allEmployee" [queryParams]="{page: 1, search: '', take: 5}">
       <app-cards [title]="'All Employee'" [text]=" 'Employee Count: ' + employeeCount ">
       </app-cards>
     </a>
     <app-loader *ngIf="showLoaderT"></app-loader>
   </ng-container>
-</div>
+</div> 
 
 
 
@@ -49,32 +49,3 @@
 
 
 
-
-<!-- <div class="divFull">
-
-  <div class="div-22 div-30-bg centreDiv">
-      <div class="centreH3">
-          <h3>Super Admin Actions</h3>
-      </div>
-
-      <div>
-          <ul>
-              <li><a routerLink="details" routerLinkActive="active" >Profile</a></li>
-              <li><a routerLink="departments"  routerLinkActive="active" >Departments</a></li>
-              <li><a routerLink="groupByDepartment" routerLinkActive="active"  >Group By Department</a></li>
-              <li>
-                  <a routerLink="allTasks" routerLinkActive="active" 
-                      [queryParams]="{page: 1, search: '', take: 5, taskStatus: ''}"
-                  >
-                  Assigned Task
-                  </a>
-              </li>
-          </ul>
-      </div>
-  </div>
-
-  <div class="div-74 div-68-bg">
-      <router-outlet></router-outlet>
-  </div>
-
-</div> -->

@@ -1,36 +1,48 @@
 <app-loader *ngIf="showLoader"></app-loader>
 
-
-<div *ngIf="!showLoader" class="parent">
-    <div class="child">
-        <form class="signupForm" [formGroup]="loginFormGroup">
-            <div class="signupForm m-3">
-                <label>Enter Your Mail</label>
-                <input type="text" class="loginInput" formControlName="email" >
-                <span *ngIf="loginFormGroup.controls.email.touched || loginFormGroup.controls.email.dirty" class="showAlert">
-                    <span *ngIf="loginFormGroup.controls.email.errors?.['required']" >*Required</span>
-                    <span *ngIf="showError(loginFormGroup.controls.email, 'pattern')" >*Enter valid Mail</span>
+<div *ngIf="!showLoader" class="center-container container w-50 mt-2">
+    <div class="card"  style="margin-top: 25%;">
+      <div class="card-body" style="background-color: wheat;">
+        <h5 class="card-title text-center">Login</h5>
+  
+        <form [formGroup]="loginFormGroup">
+  
+          <div class="mb-2" style="height: 50px;">
+            <div class="row">
+              <div class="col"><label class="form-control-sm">Email address</label></div>
+              <div class="col">
+                <input type="email" class="form-control form-control-sm" formControlName="email"
+                  placeholder="name@example.com">
+                <span *ngIf="(loginFormGroup.controls.email.dirty || loginFormGroup.controls.email.touched)"
+                  class="form-control-sm text-danger">
+                  <span *ngIf="loginFormGroup.controls.email.errors?.['required']">*Email is Required</span>
+                  <span *ngIf="loginFormGroup.controls.email.errors?.['pattern']">*Enter Valid Mail</span>
                 </span>
+              </div>
             </div>
-
-            <br>
-    
-
-            <div class="signupForm mt-30 m-3">
-                <label>Enter Your Password</label>
-                <input type="password" class="loginInput" formControlName="password" >
-                <span *ngIf="loginFormGroup.controls.password.touched || loginFormGroup.controls.password.dirty" class="showAlert">
-                    <span *ngIf="loginFormGroup.controls.password.errors?.['required']" >*Required</span>
-                    <span *ngIf="showError(loginFormGroup.controls.password, 'minlength')" >*Password length should be 8</span>
+          </div>
+  
+          <div class="mb-2" style="height: 50px;">
+            <div class="row">
+              <div class="col col-md-6 "><label class="form-control-sm">Password</label></div>
+              <div class="col">
+                <input type="password" class="form-control form-control-sm" placeholder="Password"
+                  formControlName="password">
+                <span *ngIf="(loginFormGroup.controls.password.dirty || loginFormGroup.controls.password.touched)"
+                  class="form-control-sm text-danger">
+                  <span *ngIf="loginFormGroup.controls.password.errors?.['required']">*Password is Required</span>
                 </span>
-
+              </div>
             </div>
-
-            <button class="mt-30 m-3 btn" type="submit" (keydown.enter)="loginUser()" (click)="loginUser()">Login</button>
-            <a routerLink="/register"><span>click here to sign up</span></a>
+  
+          </div>
+  
+          <div class="row container justify-content-center">
+            <div class="col-md-3"><button type="submit" (click)="loginUser()" class="btn btn-primary">Login</button>
+            </div>
+          </div>
+  
         </form>
-
+      </div>
     </div>
-    <div >
-    </div>
-</div>
+  </div>

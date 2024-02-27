@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { PortalsComponent } from './portals.component';
@@ -19,20 +20,26 @@ import { ArrowDownComponent } from '../home/commonComponent/arrow-down/arrow-dow
 import { PaginationComponent } from '../home/commonComponent/pagination/pagination.component';
 import { CreateTaskComponent } from '../home/create-task/create-task.component';
 import { superAdminAuthGuard } from '../Guards/super-admin-auth.guard';
-import { adminAuthGuard } from '../Guards/admin-auth.guard';
 import { adminASuperAdminGuard } from '../Guards/admin-asuper-admin.guard';
+import { DepartmentUserComponent } from '../home/commonComponent/department-user/department-user.component';
+import { NotificationsComponent } from '../home/commonComponent/notifications/notifications.component';
+import { ChatsComponent } from '../home/commonComponent/chats/chats.component';
+import { ChatPopUpComponent } from '../commomComponent/chat-pop-up/chat-pop-up.component';
+import { DragDroptaskComponent } from '../src/app/home/drag-droptask/drag-droptask.component';
 
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'profile', component: UserDetailsComponent, canActivate: [generalAuthGuard], canDeactivate: [profileSaveGuard] },
   { path: 'departments', component: DepartmentComponent, canActivate: [generalAuthGuard, superAdminAuthGuard] },
-  { path: 'departments/:id', component: UserListComponent, canActivate: [generalAuthGuard, superAdminAuthGuard] },
+  { path: 'departments/:id', component: DepartmentUserComponent, canActivate: [generalAuthGuard, superAdminAuthGuard] },
   { path: 'allEmployee', component: UserListComponent, canActivate: [generalAuthGuard, adminASuperAdminGuard] },
   { path: 'myTasks', component: TasksComponent, canActivate: [generalAuthGuard] },
   { path: 'myTasks/:id', component: CreateTaskComponent, canActivate: [generalAuthGuard] },
   { path: 'assignTask', component: CreateTaskComponent, canActivate: [generalAuthGuard, adminASuperAdminGuard] },
-  // { path: 'assignTask', component: CreateTaskComponent, canActivate: [generalAuthGuard, superAdminAuthGuard || adminAuthGuard] },
+  { path: 'notifications', component: NotificationsComponent, canActivate: [generalAuthGuard] },
+  { path: 'chats', component: ChatsComponent, canActivate: [generalAuthGuard] },
+  { path: 'drag-drop', component: DragDroptaskComponent, canActivate: [generalAuthGuard] },
 ];
 
 @NgModule({
@@ -43,11 +50,15 @@ const routes: Routes = [
     UserListComponent,
     DashboardComponent,
     TasksComponent,
-    CreateTaskComponent
+    CreateTaskComponent,
+    DepartmentComponent,
+    DepartmentUserComponent,
+    ChatsComponent,
+    ChatPopUpComponent,
+    DragDroptaskComponent
   ],
   imports: [
     CommonModule,
-    // BrowserModule,
     RouterModule.forChild(routes),
     LoaderComponent,
     OptionsComponent,
@@ -57,7 +68,8 @@ const routes: Routes = [
     CardsComponent,
     ArrowUpComponent,
     ArrowDownComponent,
-    PaginationComponent
+    PaginationComponent,
+    DragDropModule
   ]
 })
 export class PortalsModule { }

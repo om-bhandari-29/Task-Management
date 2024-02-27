@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Router, RouterModule } from '@angular/router';
 import { environment } from 'src/Environments/environment';
+import { UtilsService } from 'src/app/Services/utils.service';
 
 @Component({
   selector: 'app-options',
@@ -12,36 +13,44 @@ import { environment } from 'src/Environments/environment';
   imports: [ RouterModule, CommonModule],
 })
 export class OptionsComponent implements OnInit {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private utilS: UtilsService) { }
 
   @Input() show!: boolean;
 
   public employeeType: string = "";
   public ismyTaskActive: boolean = false;
 
-  // public employeeType: string | null = "";
+  public userName: string = "";
   public isEmployee: boolean = false;
 
   ngOnInit(): void {
 
-    if (this.employeeType == "Employee") {
-      this.isEmployee = true;
-    }
-    // if(localStorage.getItem("loggedInUser_EmployeeType")){
-    // this.employeeType = localStorage.getItem("loggedInUser_EmployeeType")
-    // }
 
-    if (this.router.url.startsWith('/myTasks')) {
-      this.ismyTaskActive = true;
-      // console.log(true);
-
+    let name = localStorage.getItem("employeename");
+    if (name) {
+      this.userName = name;
     }
+
     let emptype = localStorage.getItem(environment.employeeType);
 
     if (emptype) {
       this.employeeType = emptype;
     }
+    
+    if (this.employeeType == "Employee") {
+      this.isEmployee = true;
+    }
+
+
+    if (this.router.url.startsWith('/myTasks')) {
+      this.ismyTaskActive = true;
+    }
   }
 
+  public logOut(){
+    this.router.navigate([''])
+    localStorage.clear();
+    this.utilS.isLoggedInE.emit(false);
+  }
 
 }

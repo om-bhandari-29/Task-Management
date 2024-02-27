@@ -39,6 +39,7 @@ export class TasksComponent implements OnInit {
   public currentPage: number = 0;
   public errMsg: string = "";
   public errCode: number = 0;
+  public recordsPerPage: number = 0;
 
   public page: number = 0;
   public searchString: string = "";
@@ -94,10 +95,11 @@ export class TasksComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(
       (param: Params) => {
         let pageTemp = param['page'];
-        this.page = parseInt(pageTemp);
+        this.currentPage = parseInt(pageTemp);
 
         let tempTak = param['take'];
         this.take = parseInt(tempTak);
+        this.recordsPerPage = tempTak;
 
         this.searchString = param['search'];
 
@@ -105,10 +107,9 @@ export class TasksComponent implements OnInit {
           this.filterTask.isCompleted = null;
         else {
           this.filterTask.isCompleted = (param['taskStatus'] == "true") ? true : false;
-          // this.filterTask.isCompleted = param['taskStatus'];
         }
 
-        this.filterTask.index = this.page - 1;
+        this.filterTask.index = this.currentPage - 1;
         this.filterTask.search = this.searchString;
         this.filterTask.take = this.take;
         this.fetchAllTask();
@@ -116,10 +117,10 @@ export class TasksComponent implements OnInit {
     )
 
     this.activatedRoute.params.subscribe(
-      (param: Params) =>{
-        if(param['id']){
+      (param: Params) => {
+        if (param['id']) {
           this.isEditTask = true;
-        }        
+        }
       }
     )
   }
@@ -135,7 +136,6 @@ export class TasksComponent implements OnInit {
           this.ngOnInit();
         },
         error: (err) => {
-          // console.log(err);
           alert(`${err.statusText}`);
         }
       })
@@ -150,7 +150,6 @@ export class TasksComponent implements OnInit {
     }
 
     localStorage.setItem("editTask", JSON.stringify(taskL));
-    // this.router.navigate([`/myTasks/edit/${task.id}`]);
     this.router.navigate([`/portal/myTasks/${task.id}`]);
   }
 
@@ -185,12 +184,12 @@ export class TasksComponent implements OnInit {
     })
   }
 
-  public showMore(showMoreCon: HTMLParagraphElement, btnId: HTMLButtonElement) {
+  public showMore(showMoreCon: HTMLParagraphElement, btnId: HTMLAnchorElement) {
     showMoreCon.style.display = "block"
     btnId.hidden = true;
   }
 
-  public showLess(showMoreCon: HTMLParagraphElement, showMoreBtn: HTMLButtonElement) {
+  public showLess(showMoreCon: HTMLParagraphElement, showMoreBtn: HTMLAnchorElement) {
     showMoreCon.style.display = "none";
     showMoreBtn.hidden = false;
   }
@@ -203,43 +202,7 @@ export class TasksComponent implements OnInit {
         this.allTaskList = res.iterableData;
 
         this.totalRecords = res.count;
-
-        this.isPreviousExists = false;
-        this.totalPages = Math.ceil(this.totalRecords / this.filterTask.take);
-
-        if (this.page > 0 && this.page < 4) {
-          if (this.totalRecords == 0) {
-            this.currentPageSets = [];
-            this.isPreviousExists = false;
-            this.isNextExists = false;
-          }
-          else {
-
-            if (this.totalPages > 3) {
-              for (let i = 0; i < 3; i++) {
-                this.currentPageSets[i] = i + 1;
-              }
-            }
-            else {
-              this.currentPageSets = [];
-              for (let i = 0; i < this.totalPages; i++) {
-                this.currentPageSets[i] = i + 1;
-              }
-            }
-
-            if (this.page == 1) this.isPreviousExists = false;
-            else this.isPreviousExists = true;
-
-            if (this.page + 1 > this.totalPages)
-              this.isNextExists = false
-            else this.isNextExists = true;
-
-          }
-          this.showLoader = false;
-        }
-        else {   
-          this.fetchAllTaskHelper();
-        }
+        this.showLoader = false;
       },
       error: (err) => {
         console.log(err);
@@ -254,10 +217,10 @@ export class TasksComponent implements OnInit {
 
   public fetchAllTaskHelper() {
 
-    if (this.page + 1 > this.totalPages) this.isNextExists = false
+    if (this.currentPage + 1 > this.totalPages) this.isNextExists = false
     else this.isNextExists = true;
     this.isPreviousExists = true;
-    let r = Math.ceil(this.page / 3);
+    let r = Math.ceil(this.currentPage / 3);
     let startNumber = (r - 1) * 3 + 1;
     let endNumber = r * 3;
     let till: number = 0;;
@@ -407,98 +370,16 @@ export class TasksComponent implements OnInit {
 
 
   public getTaskPerPage() {
-    // console.log("insdie getTaskPerPage");
     this.router.navigate(['/superAdmin/allTasks'], { queryParams: { page: 1, search: this.searchString, take: this.filterTask.take } })
-
-    /*  this.currentPage = 0;
-    this.filterTask.index = 0;
-    console.log(this.filterTask.take, this.filterTask.index, this.filterTask.search, this.totalRecords);
-
-    if (this.filterTask.take > this.totalRecords) {
-      this.isNextExists = false;
-    }
-    else {
-      this.isNextExists = true;
-      this.isPreviousExists = false;
-    }
-    // if (this.filterTask.take < this.totalRecords) {
-    //   this.isNextExists = true;
-    // }
-
-    this.auth.getAllTask(this.filterTask).subscribe({
-      next: (res: response<taskListModel>) => {
-        this.allTaskList = res.iterableData;
-        // this.totalRecords = this.allTaskList.length;
-
-        this.currentPageSets = [];
-        let totalPageTemp = Math.ceil(this.totalRecords / this.filterTask.take);
-        this.totalPages = totalPageTemp
-        if (this.totalPages > 3) {
-          this.isNextSetBtnExists = true;
-          for (let i = 0; i < 3; i++) {
-            this.currentPageSets[i] = i + 1;
-          }
-        }
-        else {
-          this.isNextSetBtnExists = false;
-          for (let i = 0; i < this.totalPages; i++) {
-            this.currentPageSets[i] = i + 1;
-          }
-        }
-        // for(let i=0; i<tp; i++){
-        //   this.currentPageSets[i] = i+1;
-        // }
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    })
-    */
   }
-  // public getTaskPerPageEvent(pTake: number) {
-  //   this.router.navigate(['/superAdmin/allTasks'], 
-  //   {queryParams: {page: 1, search: this.searchString, take: pTake, taskStatus: ''}})
-  // }
+
 
 
   public getPrevious() {
     this.isNextExists = true;
     this.router.navigate(['/superAdmin/allTasks'],
-      { queryParams: { page: this.page - 1, search: this.filterTask.search, take: this.filterTask.take } })
-    /*
-        if (this.currentPage == this.currentPageSets[0] - 1) {
-          this.previousSet();
-          return;
-        }
-    
-        this.currentPage = this.currentPage - 1;
-        this.isNextExists = true;
-    
-        if (this.currentPage - 1 < 0) {
-          this.isPreviousExists = false;
-        }
-        if (this.currentPage < 0) {
-          this.currentPage = this.currentPage + 1;
-          return;
-        }
-    
-        this.filterTask.index = this.currentPage;
-        this.auth.getAllTask(this.filterTask).subscribe({
-          next: (res: response<taskListModel>) => {
-            this.allTaskList = res.iterableData;
-          },
-          error: (err) => {
-            console.log(err);
-          }
-        })
-        */
+      { queryParams: { page: this.currentPage - 1, search: this.filterTask.search, take: this.filterTask.take } })
   }
-
-  // public getPreviousEvent(cPage: number) {
-  //   this.isNextExists = true;
-  //   this.router.navigate(['/superAdmin/allTasks'], 
-  //   {queryParams: {page: this.page-1, search: this.filterTask.search, take: this.filterTask.take, taskStatus: ''}})
-  // }
 
 
   public getNext() {
@@ -508,7 +389,7 @@ export class TasksComponent implements OnInit {
         return;
       }
     }
-    console.log(this.currentPage);
+    // console.log(this.currentPage);
 
     this.isPreviousExists = true;
     this.currentPage = this.currentPage + 1;
@@ -573,51 +454,11 @@ export class TasksComponent implements OnInit {
       }
     })
   }
-  // public sort(sortBy: string, order: number) {
 
-  //   if (sortBy == "Title") {
-  //     if (order == 0) {
-  //       this.isTitleAsscending = true;
-  //       this.isTitleDescending = false;
-  //     }
-  //     else {
-  //       this.isTitleAsscending = false;
-  //       this.isTitleDescending = true;
-  //     }
-
-  //     this.isDescriptionAsscending = this.isDescriptionDescending = false;
-  //   }
-  //   else {
-  //     if (order == 0) {
-  //       this.isDescriptionAsscending = true;
-  //       this.isDescriptionDescending = false;
-  //     }
-  //     else {
-  //       this.isDescriptionAsscending = false;
-  //       this.isDescriptionDescending = true;
-  //     }
-
-  //     this.isTitleAsscending = this.isTitleDescending = false;
-  //   }
-
-
-  //   this.filterTask.orderBy = sortBy;
-  //   this.filterTask.orders = order;
-
-  //   this.filterTask.index = this.currentPage;
-  //   this.auth.getAllTask(this.filterTask).subscribe({
-  //     next: (res: response<taskListModel>) => {
-  //       this.allTaskList = res.iterableData;
-  //     },
-  //     error: (err) => {
-  //       console.log(err);
-  //     }
-  //   })
-  // }
 
   public pageClicked(pageN: number) {
     pageN = pageN - 1;
-    console.log(pageN);
+    // console.log(pageN);
     this.filterTask.index = pageN;
     this.currentPage = pageN;
 
@@ -625,7 +466,6 @@ export class TasksComponent implements OnInit {
     this.auth.getAllTask(this.filterTask).subscribe({
       next: (res: response<taskListModel>) => {
         this.allTaskList = res.iterableData;
-        // this.totalPages = 
       },
       error: (err) => {
         console.log(err);
@@ -633,39 +473,6 @@ export class TasksComponent implements OnInit {
     })
   }
 
-  // public nextSet(){
-  //   let remainingPages = this.totalPages - this.currentPageSets[this.currentPageSets.length-1];
-  //   let lastPage = this.currentPageSets[this.currentPageSets.length-1];
-  //   this.filterTask.index = lastPage;
-  //   this.currentPage = this.filterTask.index;
-
-  //   this.auth.getAllTask(this.filterTask).subscribe({
-  //     next: (res: response<taskListModel>) =>{
-  //       this.allTaskList = res.iterableData;
-  //     },
-  //     error: (err) =>{
-  //       console.log(err);
-  //     }
-  //   })
-  //   this.isPreviousSetBtnExists = true;
-  //   if(remainingPages > 3){
-  //     this.isNextSetBtnExists = true;
-  //     this.isNextExists = true;
-
-  //     this.currentPageSets = [];
-  //     for(let i=0; i<3; i++){
-  //       this.currentPageSets[i] = i+1+lastPage;
-  //     }
-  //   }
-  //   else{
-  //     this.isNextSetBtnExists = false;
-  //     this.isNextExists = false;
-  //     this.currentPageSets = [];
-  //     for(let i=0; i<remainingPages; i++){
-  //       this.currentPageSets[i] = i+1+lastPage;
-  //     }
-  //   }
-  // }
   public nextSet() {
     let remainingPages = this.totalPages - this.currentPageSets[this.currentPageSets.length - 1];
     let lastPage = this.currentPageSets[this.currentPageSets.length - 1];
@@ -759,7 +566,6 @@ export class TasksComponent implements OnInit {
   }
 
   public getNextEvent(cPage: number) {
-    // console.log(this.filterTask.isCompleted);
     this.router.navigate(['/portal/myTasks'],
       { queryParams: { page: cPage + 1, search: this.searchString, take: this.filterTask.take, taskStatus: this.filterTask.isCompleted } })
   }
@@ -777,10 +583,11 @@ export class TasksComponent implements OnInit {
     this.router.navigate(['/portal/myTasks'],
       {
         queryParams: {
-          page: this.page - 1, search: this.filterTask.search, take: this.filterTask.take,
+          page: this.currentPage - 1, search: this.filterTask.search, take: this.filterTask.take,
           taskStatus: this.filterTask.isCompleted
         }
-      })
+      }
+    )
   }
 }
 

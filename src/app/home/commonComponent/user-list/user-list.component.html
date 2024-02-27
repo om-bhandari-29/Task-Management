@@ -3,65 +3,49 @@
 <div>
   <app-loader *ngIf="showLoader"></app-loader>
 
-  <div *ngIf="!showLoader" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+  <div *ngIf="!showLoader"
+    style="display: flex; justify-content: center; flex-direction: column; align-items: center; width: 100%;">
     <h4 *ngIf="isDepartEmployeeRoute">"{{allEmployeeList[0].departmentName}}" department employee</h4>
-    <table style="align-items: center;">
-      <tr>
-        <th>S. No.</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Employee Type</th>
-        <th>Department</th>
-        <th>Action</th>
-      </tr>
-      <tr *ngFor="let user of allEmployeeList; let i=index">
-        <td> {{i+1}} </td>
-        <td>{{user.name}} </td>
-        <td> {{user.email}} </td>
-        <td>{{user.phone}} </td>
-        <td *ngIf="user.employeeType == 0">Employee</td>
-        <td *ngIf="user.employeeType == 1">Admin</td>
-        <td *ngIf="user.employeeType == 2"><b>Super Admin</b></td>
-        <td>{{user.departmentName}} </td>
-        <td><button *ngIf="!(user.employeeType == 2); else sAdmin" (click)="assignTask(user)">Assign Task</button></td>
-        <ng-template #sAdmin>
-          <td style="color: red;">Connot Assign Task to Super Admin</td>
-        </ng-template>
-      </tr>
-    </table>
+    <p>Total Records: {{totalRecords}} </p>
+    <div class="tableScroll">
+      <table style="align-items: center;">
+        <tr>
+          <th>S. No.</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Employee Type</th>
+          <th>Department</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngFor="let user of allEmployeeList; let i=index">
+          <td> {{(i+1) + userListM.index * userListM.take}} </td>
+          <td>{{user.name}} </td>
+          <td> {{user.email}} </td>
+          <td>{{user.phone}} </td>
+          <td *ngIf="user.employeeType == 0">Employee</td>
+          <td *ngIf="user.employeeType == 1">Admin</td>
+          <td *ngIf="user.employeeType == 2"><b>Super Admin</b></td>
+          <td>{{user.departmentName}} </td>
+          <td>
+            <button *ngIf="!(user.employeeType == 2)" (click)="assignTask(user)">Assign Task</button>
+            <i class='bx bx-message-dots cPointer ml-20' (click)="openChatBox(user.id, user.name)"></i>
+          </td>
+        </tr>
+      </table>
+    </div>
 
   </div>
+  <app-pagination [filterObj]="userListM" [totalRecordsChild]="totalRecords" [recordsPerPageC]="recordsPerPage"
+    [currntPageChild]="currentPage" (getTaskPerPageChild)="getTaskPerPageEvent($event)"
+    (getPreviousEventChild)="getPreviousEvent($event)" (getNextEventChild)="getNextEvent($event)"
+    (getClickedpageEventChild)="getClickedpageEvent($event)">
+  </app-pagination>
+
+  <app-chat-pop-up *ngIf="isShowChat" 
+    [employeeName]="empName" [loggedInUserId]="loggedInUserId" [chatId]="chatId"
+    (closePopUp)="closeChatBox()" (sendMessageE)="sendMessage($event)"
+  >
+  </app-chat-pop-up>
+
 </div>
-
-<!-- <div>
-  <app-loader *ngIf="showLoader"></app-loader>
-
-  <div *ngIf="!showLoader" style="display: flex; justify-content: center;">
-    <table style="align-items: center;">
-      <tr>
-        <th>S. No.</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Employee Type</th>
-        <th>Department</th>
-        <th>Action</th>
-      </tr>
-      <tr *ngFor="let user of allEmployeeList; let i=index">
-        <td> {{i+1}} </td>
-        <td>{{user.name}} </td>
-        <td> {{user.email}} </td>
-        <td>{{user.phone}} </td>
-        <td *ngIf="user.employeeType == 0">Employee</td>
-        <td *ngIf="user.employeeType == 1">Admin</td>
-        <td *ngIf="user.employeeType == 2"><b>Super Admin</b></td>
-        <td>{{user.departmentName}} </td>
-        <td><button *ngIf="!(user.employeeType == 2); else sAdmin" (click)="assignTask(user)">Assign Task</button></td>
-        <ng-template #sAdmin>
-          <td style="color: red;">Connot Assign Task to Super Admin</td>
-        </ng-template>
-      </tr>
-    </table>
-  </div>
-</div> -->

@@ -19,6 +19,7 @@ import { LoaderComponent } from './home/commonComponent/loader/loader.component'
 import { ErrorComponent } from './home/commonComponent/error/error.component';
 import { SharedModule } from './shared/shared.module';
 import { CommonModule } from '@angular/common';
+import { NotificationsComponent } from './home/commonComponent/notifications/notifications.component';
 
 const appRoutes: Routes = [
 
@@ -26,26 +27,7 @@ const appRoutes: Routes = [
   { path: 'register', component: SignupComponent },
   { path: 'login', component: LoginComponent },
 
-  // { path: 'portal', component: DashboardComponent, canActivate: [generalAuthGuard] },
   { path: 'portal', loadChildren: () => import('./portals/portals.module').then(m => m.PortalsModule) },
-
-
-  // { path: 'dashboard', component: DashboardComponent, canActivate: [generalAuthGuard] },
-
-
-  // { path: 'profile', component: UserDetailsComponent, canActivate: [generalAuthGuard], canDeactivate: [profileSaveGuard] },
-  // { path: 'allEmployee', component: UserListComponent, canActivate: [generalAuthGuard] },
-  // { path: 'departments', component: DepartmentComponent, canActivate: [generalAuthGuard, superAdminAuthGuard] },
-  // { path: 'departments/:id', component: UserListComponent, canActivate: [generalAuthGuard, superAdminAuthGuard] },
-  // { path: 'assignTask', component: CreateTaskComponent, canActivate: [generalAuthGuard, superAdminAuthGuard || adminAuthGuard] },
-
-  // {
-  //   path: 'myTasks', canActivate: [generalAuthGuard],
-  //   loadChildren: () => import('./home/my-tasks/my-tasks.module').then(m => m.MyTasksModule)
-  // },
-
-
-
 ]
 @NgModule({
   declarations: [
@@ -53,6 +35,7 @@ const appRoutes: Routes = [
     HomeComponent,
     LoginComponent,
     SignupComponent,
+    NotificationsComponent
   ],
   imports: [
     CardsComponent,
@@ -64,7 +47,9 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot({
+      timeOut: 1000
+    }), // ToastrModule added
     SharedModule,
     LoaderComponent,
     OptionsComponent

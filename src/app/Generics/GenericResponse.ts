@@ -40,3 +40,23 @@ export interface response3{
     statusCode: number
 }
 
+
+export interface notification{
+    created: string;
+    id: number;
+    isSeen: boolean;
+    message: string;
+    todoId: number;
+}
+
+
+export interface chatBox {
+    employeeId: number;
+    employeeName: string;
+    isSeen: boolean;
+    lastActive: string;
+    lastMessage: string;
+    newMessages: number;
+    recieverId: number;
+    recieverName: string;
+}

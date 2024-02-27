@@ -1,0 +1,34 @@
+<app-options [show]=true></app-options>
+
+<app-loader *ngIf="isShowLoader"></app-loader>
+
+<div *ngIf="!isShowLoader" style="display: flex; width: 100%; padding: 16px;">
+
+  <div style="display: flex; flex-direction: column; width: 20%; margin-left: 20%;">
+    <div class="allChatLeft">
+      <p style="font-size: large; font-weight: bolder;">All Chats</p>
+    </div>
+    <div *ngIf="empType != 'Employee'">
+      <input type="search" style="margin-left: 7px;
+      width: 70%;
+      border-radius: 6px;" [(ngModel)]="searchStr" (ngModelChange)="searchStrFn()">
+      <button style="border-radius: 6px;">Search</button>
+      <ul class="searchList">
+        <li class="cPointer" *ngFor="let emp of searchedEmployeeList" (click)="getChats(emp.id, emp.name)" >{{emp.name}}</li>
+      </ul>
+    </div>
+    <div class="scroll">
+      <div class="chatList" *ngFor="let msg of chatList" (click)="getChats(msg.id, msg.name)">
+        <p style="font-size: large; margin: 0px; font-weight: 500;"> {{msg.name}} </p>
+        <p style="margin: 0px;"> {{msg.message}} </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<app-chat-pop-up *ngIf="isShowChat"
+[employeeName]="empName"  [loggedInUserId]="loggedInUserId" [chatId]="chatId"
+(closePopUp)="closeChatBox()" (sendMessageE)="sendMessage($event)" (deleteMessageE)="deleteMsg($event)"
+>
+</app-chat-pop-up>

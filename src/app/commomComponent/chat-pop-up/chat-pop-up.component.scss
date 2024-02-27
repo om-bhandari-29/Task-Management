@@ -1,0 +1,44 @@
+.scrollMe {
+  height: 400px;
+  overflow: scroll;
+  width: 100%;
+}
+
+
+.allMsg {
+  display: flex;
+  background-color: antiquewhite;
+  margin: 2px;
+  width: fit-content;
+  flex-direction: column;
+  border: 1px solid gray;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.flexEnd {
+  justify-content: flex-end;
+}
+
+.move {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  background-color: darkcyan;
+  border-radius: 9px;
+  position: absolute;
+  overflow: hidden;
+  right: 120px;
+  top: 150px;
+  height: 400px;
+}
+
+.heading {
+  background-color: darkgrey;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 8px;
+  text-align: center;
+  width: 100%
+}

@@ -6,87 +6,6 @@
 
 
 
-<!-- <div *ngIf="!showLoader" class="parent">
-    <div class="child mt-15">
-        <form class="signupForm" [formGroup]="userDetailsFormGroup">
-            <div class=" mt-5 singupInputAsside">
-                <label>Name</label>
-                <h2 class="signupFormInput">{{loggedInUserData?.name}} </h2>
-            </div>
-
-            <div class=" mt-15 m-3 singupInputAsside">
-                <label>Email</label>
-                <h2 class="signupFormInput">{{loggedInUserData?.email}} </h2>
-            </div>
-
-
-            <div class=" mt-15 m-3 singupInputAsside">
-                <label>Address</label>
-                <h2 *ngIf="!isEdit" class="signupFormInput">{{loggedInUserData?.address}} </h2>
-
-                <span
-                    *ngIf="(userDetailsFormGroup.controls.address.dirty || userDetailsFormGroup.controls.address.touched)"
-                    class="showAlert">
-                    <span *ngIf="userDetailsFormGroup.controls.address.errors?.['required']">*Required</span>
-                </span>
-                <textarea style="resize: none;" *ngIf="isEdit" cols="30" rows="3" formControlName="address">
-                </textarea>
-            </div>
-
-            <div class=" mt-15 m-3 singupInputAsside">
-                <label>City</label>
-                <h2 *ngIf="!isEdit" class="signupFormInput">{{loggedInUserData?.city}} </h2>
-
-                <span *ngIf="(userDetailsFormGroup.controls.city.dirty || userDetailsFormGroup.controls.city.touched)"
-                    class="showAlert">
-                    <span *ngIf="userDetailsFormGroup.controls.city.errors?.['required']">*Required</span>
-                </span>
-                <input *ngIf="isEdit" type="text" class="signupFormInput" formControlName="city">
-            </div>
-
-            <div class=" mt-15 m-3 singupInputAsside">
-                <label>Country</label>
-                <h2 *ngIf="!isEdit" class="signupFormInput">{{loggedInUserData?.country}} </h2>
-
-                <span
-                    *ngIf="(userDetailsFormGroup.controls.country.dirty || userDetailsFormGroup.controls.country.touched) && isEdit"
-                    class="showAlert">
-                    <span *ngIf="userDetailsFormGroup.controls.country.errors?.['required']">*Required</span>
-                </span>
-                <input *ngIf="isEdit" type="text" class="signupFormInput" formControlName="country">
-            </div>
-
-
-            <div class=" mt-15 m-3 singupInputAsside">
-                <label>Phone</label>
-                <h2 *ngIf="!isEdit" class="signupFormInput">{{loggedInUserData?.phone}} </h2>
-
-                <span *ngIf="(userDetailsFormGroup.controls.phone.dirty || userDetailsFormGroup.controls.phone.touched)"
-                    class="showAlert">
-                    <span *ngIf="userDetailsFormGroup.controls.phone.errors?.['required']">*Required</span>
-                    <span *ngIf="userDetailsFormGroup.controls.phone.errors?.['pattern']">*Enter 10 digit Phone
-                        Number</span>
-                </span>
-                <input *ngIf="isEdit" type="text" class="signupFormInput" formControlName="phone">
-
-            </div>
-
-            <div class=" mt-15 m-3 singupInputAsside">
-                <label>Department </label>
-                <h2 class="signupFormInput">{{loggedInUserData?.departmentName}} </h2>
-            </div>
-
-            <div>
-                <button *ngIf="!isEdit" class="mt-30 m-3 btn" type="submit" (click)="editDetails(true)">Edit </button>
-                <button *ngIf="isEdit" class="mt-30 m-3 btn" type="submit" (click)="cancelEditDetails(false)">Cancel
-                </button>
-                <button *ngIf="userDetailsFormGroup.valid && isEdit && userDetailsFormGroup.dirty" (click)="submit()"
-                    class="mt-30 m-3 btn" type="submit">Save Changes </button>
-            </div>
-        </form>
-    </div>
-</div> -->
-
 
 
 <form  *ngIf="!showLoader"  [formGroup]="userDetailsFormGroup" style="display: flex; justify-content: center; width: 100%; align-items: center; flex-direction: column;">
@@ -175,8 +94,6 @@
         <button *ngIf="!isEdit" class="mt-30 m-3 btn" type="submit" (click)="editDetails(true)">Edit </button>
         <button *ngIf="isEdit" class="mt-30 m-3 btn" type="submit" (click)="cancelEditDetails(false)">Cancel
         </button>
-        <!-- <button *ngIf="userDetailsFormGroup.valid && isEdit && userDetailsFormGroup.dirty" (click)="submit()"
-            class="mt-30 m-3 btn" type="submit">Save Changes </button> -->
         <button *ngIf="userDetailsFormGroup.valid && isEdit" (click)="submit()"
             class="mt-30 m-3 btn" type="submit">Save Changes </button>
     </div>

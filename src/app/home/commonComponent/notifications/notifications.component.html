@@ -1,0 +1,34 @@
+<app-options [show]=true></app-options>
+
+<app-loader *ngIf="showLoader">
+</app-loader>
+
+
+
+
+<select style="margin-left: 20px;" *ngIf="!showLoader" (change)="getCustomNotifications()" [(ngModel)]="notification.isSeen">
+  <option [ngValue]="true">Seen</option>
+  <option [ngValue]="false">UnSeen</option>
+  <option [ngValue]="null">All</option>
+</select>
+
+<h6 style="margin-left: 20px;" *ngIf="!showLoader">Message Count : {{allNotifications.length}}</h6>
+
+<div *ngIf="!showLoader" class="tableScroll" style="margin-left: 20px;">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>S. No</th>
+        <th>message</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let noti of allNotifications; let i=index">
+        <td>{{i+1}} </td>
+        <td>{{noti.message}} </td>
+        <td><Button [disabled]="noti.isSeen" (click)="markAsRead(noti.id)">Mark As Read</Button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>>

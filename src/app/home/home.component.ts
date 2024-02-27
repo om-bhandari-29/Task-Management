@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../Services/utils.service';
-import { environment } from 'src/Environments/environment';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,12 +9,19 @@ import { Router } from '@angular/router';
 })
 
 export class HomeComponent implements OnInit {
-  constructor(private utilS: UtilsService, private router: Router){}
+  constructor(private utilS: UtilsService, private router: Router) {
+
+    let name = localStorage.getItem("Name");
+    if (name) {
+      this.userName = name;
+    }
+  }
 
   public isL: boolean = false;
   public loggedInUserName: string = "";
   
   ngOnInit(): void {
+
     this.isL = this.utilS.isLoggedInF();
     if(this.isL){
       this.loggedInUserName = this.utilS.loggedInUserName();
@@ -35,12 +41,15 @@ export class HomeComponent implements OnInit {
   }
 
   public logOut(){
-    // localStorage.removeItem(environment.tokenName);
     this.router.navigate([''])
     localStorage.clear();
-    this.utilS.isLoggedInE.emit(false);
-    // this.ngOnInit();
-    
+    this.utilS.isLoggedInE.emit(false);   
   }
 
+  public userName: string = "";
+
+  public logout(){
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
 }

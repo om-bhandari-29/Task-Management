@@ -1,0 +1,14 @@
+// table, th, td {
+//   border: 1px solid black;
+//   border-collapse: collapse;
+//   padding: 5px;
+// }
+
+.tableScroll {
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }

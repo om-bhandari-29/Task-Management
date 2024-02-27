@@ -1,4 +1,4 @@
-<div class="parent">
+<!-- <div class="parent">
     <div class="child mt-15">
         <form class="signupForm" [formGroup]="signupFormGroup">
             <div class=" mt-5 singupInputAsside">
@@ -17,7 +17,7 @@
                 <span *ngIf="signupFormGroup.controls.email.dirty || signupFormGroup.controls.email.touched"
                     class="showAlert">
                     <span *ngIf="signupFormGroup.controls.email.errors?.['required']">*Required</span>
-                    <span *ngIf="showError(signupFormGroup.controls.email, 'pattern')"> *Enter Valid Mail</span>
+                    <span *ngIf="showError(signupFormGroup.controls.email, 'pattern')">*Enter Valid Mail</span>
                 </span>
                 <input type="text" class="signupFormInput" formControlName="email">
             </div>
@@ -42,7 +42,8 @@
                 <span
                     *ngIf="signupFormGroup.controls.confirmPassword.dirty || signupFormGroup.controls.confirmPassword.touched"
                     class="showAlert">
-                    <span *ngIf="signupFormGroup.controls.confirmPassword.errors?.['required']; else misMatchErr">*Required</span>
+                    <span
+                        *ngIf="signupFormGroup.controls.confirmPassword.errors?.['required']; else misMatchErr">*Required</span>
                     <ng-template #misMatchErr>
                         <span *ngIf="isSubmitted && signupFormGroup.errors?.['passwordMismatchError']">
                             Password doesn't matches
@@ -83,21 +84,18 @@
 
             <div class=" mt-15 m-3 singupInputAsside">
                 <label>Phone</label>
-                <!-- <div class="containerColoum"> -->
                 <span *ngIf="(signupFormGroup.controls.phone.dirty || signupFormGroup.controls.phone.touched)"
                     class="showAlert">
                     <span *ngIf="signupFormGroup.controls.phone.errors?.['required']">*Required</span>
                     <span *ngIf="showError(signupFormGroup.controls.phone, 'pattern')">*Enter Valid Phone Number</span>
                 </span>
                 <input type="number" class="signupFormInput" formControlName="phone">
-                <!-- </div> -->
             </div>
 
             <div class=" mt-15 m-3 singupInputAsside">
                 <label>Department </label>
                 <select class="signupFormInput" formControlName="departmentID">
                     <ng-container *ngFor="let depart of allDepartListService">
-                        <!-- <option value={{depart.id}}>{{depart.departmentName}} </option> -->
                         <option [ngValue]="depart.id">{{depart.departmentName}} </option>
                     </ng-container>
                 </select>
@@ -106,5 +104,196 @@
             <button class="mt-30 m-3 btn" type="submit" (keydown.enter)="singupUser()"
                 (click)="singupUser()">Signup</button>
         </form>
+    </div>
+</div> -->
+
+
+
+<!-- new form -->
+
+
+<div class="center-container container w-50 mt-2" style="width: 100%;">
+    <div class="card">
+        <div class="card-body" style="background-color: antiquewhite;">
+            <form [formGroup]="signupFormGroup">
+
+                <div class="mb-2" style="height: 50px; margin-top: -8px;">
+                    <div class="row">
+                        <div class="col col-md-6"><label class="form-control-sm">Name</label></div>
+                        <div class="col">
+                            <input type="text" class="form-control form-control-sm" formControlName="name"
+                                placeholder="Enter name">
+                            <span *ngIf="(signupFormGroup.controls.name.dirty || signupFormGroup.controls.name.touched)"
+                                class="form-control-sm text-danger">
+                                <span style="font-size: 12px; margin-top: 0px;" *ngIf="signupFormGroup.controls.name.errors?.['required']">
+                                    *Name is Required
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-2" style="height: 50px;">
+                    <div class="row">
+                        <div class="col"><label class="form-control-sm">Email address</label></div>
+                        <div class="col">
+                            <input type="email" class="form-control form-control-sm" formControlName="email"
+                                placeholder="name@example.com">
+                            <span
+                                *ngIf="(signupFormGroup.controls.email.dirty || signupFormGroup.controls.email.touched)"
+                                class="form-control-sm text-danger">
+                                <span *ngIf="signupFormGroup.controls.email.errors?.['required']">*Email is
+                                    Required</span>
+                                <span *ngIf="signupFormGroup.controls.email.errors?.['pattern']">*Enter Valid
+                                    Mail</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-2" style="height: 50px;">
+                    <div class="row">
+                        <div class="col-md-6"><label class="form-control-sm">Phone Number</label></div>
+                        <div class="col">
+
+                            <input type="number" class="form-control form-control-sm" formControlName="phone"
+                                maxlength="10">
+
+                            <span
+                                *ngIf="(signupFormGroup.controls.phone.dirty || signupFormGroup.controls.phone.touched)"
+                                class="form-control-sm text-danger">
+                                <span *ngIf="signupFormGroup.controls.phone.errors?.['required']">*Number is
+                                    Required</span>
+                                <span *ngIf="signupFormGroup.controls.phone.errors?.['pattern']">*Enter 10 digit
+                                    Number</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-2" style="height: 50px;">
+                    <div class="row">
+                        <div class="col col-md-6"><label class="form-control-sm">City</label></div>
+                        <div class="col">
+
+                            <input type="text" class="form-control form-control-sm" formControlName="city"
+                                placeholder="Your City">
+
+                            <span *ngIf="(signupFormGroup.controls.city.dirty || signupFormGroup.controls.city.touched)"
+                                class="form-control-sm text-danger">
+                                <span *ngIf="signupFormGroup.controls.city.errors?.['required']">*city is
+                                    Required</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-2" style="height: 50px;">
+                    <div class="row">
+                        <div class="col col-md-6"><label class="form-control-sm">Address</label></div>
+                        <div class="col">
+
+                            <input type="text" class="form-control form-control-sm" formControlName="address"
+                                placeholder="Your Address">
+
+                            <span
+                                *ngIf="(signupFormGroup.controls.address.dirty || signupFormGroup.controls.address.touched)"
+                                class="form-control-sm text-danger">
+                                <span *ngIf="signupFormGroup.controls.address.errors?.['required']">*Address is
+                                    Required</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-2" style="height: 50px;">
+                    <div class="row">
+                        <div class="col col-md-6"><label class="form-control-sm">Country</label></div>
+                        <div class="col">
+
+                            <input type="text" class="form-control form-control-sm" formControlName="country"
+                                placeholder="Your Country">
+
+                            <span
+                                *ngIf="(signupFormGroup.controls.country.dirty || signupFormGroup.controls.country.touched)"
+                                class="form-control-sm text-danger">
+                                <span *ngIf="signupFormGroup.controls.country.errors?.['required']">*country is
+                                    Required</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-2" style="height: 50px;">
+                    <div class="row">
+                        <div class="col col-md-6"><label class="form-control-sm">Department</label></div>
+                        <div class="col">
+
+                            <select class="signupFormInput" formControlName="departmentID">
+                                <ng-container *ngFor="let depart of allDepartListService">
+                                    <option [ngValue]="depart.id">{{depart.departmentName}} </option>
+                                </ng-container>
+                            </select>
+
+                            <span
+                                *ngIf="(signupFormGroup.controls.departmentID.dirty || signupFormGroup.controls.departmentID.touched)"
+                                class="form-control-sm text-danger">
+                                <span *ngIf="signupFormGroup.controls.departmentID.errors?.['required']">*Department is
+                                    Required</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-2" style="height: 50px;">
+                    <div class="row">
+                        <div class="col col-md-6 "><label class="form-control-sm">Password</label></div>
+                        <div class="col">
+                            <input type="password" class="form-control form-control-sm" placeholder="password"
+                                formControlName="password">
+                            <span
+                                *ngIf="(signupFormGroup.controls.password.dirty || signupFormGroup.controls.password.touched)"
+                                class="form-control-sm text-danger">
+                                <span *ngIf="signupFormGroup.controls.password.errors?.['required']">*Password is
+                                    Required</span>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mb-2" style="height: 50px;">
+                    <div class="row">
+                        <div class="col col-md-6 "><label class="form-control-sm">Confirm Password</label></div>
+                        <div class="col">
+                            <input type="password" class="form-control form-control-sm" placeholder="Confirm Password"
+                                formControlName="confirmPassword">
+                            <span
+                                *ngIf="(signupFormGroup.controls.confirmPassword.dirty || signupFormGroup.controls.confirmPassword.touched)"
+                                class="form-control-sm text-danger">
+                                <span
+                                    *ngIf="signupFormGroup.controls.confirmPassword.errors?.['required']; else passMismatch">*Confirm
+                                    Password is Required</span>
+                                <ng-template #passMismatch>
+                                    <span *ngIf="signupFormGroup.errors?.['passwordMismatchError']">*Password Doesn't
+                                        matches</span>
+                                </ng-template>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row container justify-content-center">
+                    <button type="submit" class="btn btn-primary" (keydown.enter)="singupUser()"
+                        (click)="singupUser()">Register Employee</button>
+
+                    <button *ngIf="isShowSbnt" class="btn btn-primary" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span class="sr-only">Loading...</span>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

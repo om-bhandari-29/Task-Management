@@ -1,0 +1,29 @@
+<!-- <div class="mover"> -->
+<div class="move">
+  <div class="heading">
+    <p style="font-size: large; font-weight: bolder;">{{employeeName}} </p>
+    <span (click)="closePopupChatBox()" class="cPointer">Close</span>
+  </div>
+
+  <div class="scrollMe" #content (scroll)="onScrollUp($event)" >
+    <ng-container>
+      <div #messages *ngFor="let msg of userChat;" style="display: flex; width: 100%;" 
+        [ngClass]="{'flexEnd': (msg.senderId == loggedInUserId) }">
+        <div class="allMsg">
+          <p style="font-size: small; margin: 0px; font-weight: 700;"> {{msg.name}} </p>
+          <p style="margin: 0px; font-size: smaller; font-weight: 500;">
+            <i *ngIf="(msg.senderId == loggedInUserId)" class='bx bxs-trash' (click)="deleteMsg(msg.id)"></i>
+            {{msg.message}}
+          </p>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+
+  <div style="display: flex; justify-content: space-around;">
+    <input #msg class="form-control" style="width: 100%; border-radius: 9px;" type="text" (keydown.enter)="sendMessage(msg)">
+    <button class="btn btn-info" (click)="sendMessage(msg)">send</button>
+  </div>
+</div>
+<!-- </div> -->

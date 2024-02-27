@@ -1,4 +1,4 @@
-<div *ngIf="allTaskListChild.length > 0" style="display: flex; flex-direction: row; justify-content: space-between;">
+<div *ngIf="totalRecordsChild > 0" style="display: flex; flex-direction: row; justify-content: space-between;">
     <div>
         Records Per Page:
         <select (change)="getTaskPerPage()" [(ngModel)]="filterObj.take">
@@ -11,15 +11,15 @@
     </div>
 
     <div style="display: flex; flex-direction: row;">
-        <a *ngIf="isPreviousExistsChild" (click)="getPrevious()"><button style="cursor: pointer;">Previous</button> </a>
+        <a *ngIf="isPreviousExists" (click)="getPrevious()"><button style="cursor: pointer;">Previous</button> </a>
 
-        <li *ngFor="let cPage of currentPageSetsChild" style="list-style: none; margin-left: 5px; cursor: pointer;"
-            [ngClass]="{active: ((cPage) == pageChild)}">
+        <li *ngFor="let cPage of currentPageSet" style="list-style: none; margin-left: 5px; cursor: pointer;"
+            [ngClass]="{active: ((cPage) == currntPageChild)}">
             <a (click)="getClickedpage(cPage)">
                 {{cPage}}
             </a>
         </li>
         
-        <a *ngIf="isNextExistsChild" (click)="getNext()"><button style="cursor: pointer;">Next</button> </a>
+        <a *ngIf="isNextExists" (click)="getNext()"><button style="cursor: pointer;">Next</button> </a>
     </div>
 </div>

@@ -31,6 +31,10 @@ li{
     margin-left: 30px;
 }
 
+.ml-20{
+    margin-left: 20px;
+}
+
 .showAlert{
     color: red;
     font-weight: bold;
@@ -81,8 +85,9 @@ li{
 }
 
 .active{
-    background-color: aqua;
-    border-radius: 8px;
+    // background-color: aqua;
+    color: blue;
+    // border-radius: 8px;
 }
 
 .div-22{
@@ -99,4 +104,12 @@ li{
     height: 20px;
     width: 160px;
     color: #CCC;
+}
+
+.text-align-right{
+    text-align: right;
+}
+
+.cPointer{
+    cursor: pointer;
 }

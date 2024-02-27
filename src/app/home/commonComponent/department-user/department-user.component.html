@@ -1,0 +1,36 @@
+<app-options [show]=true></app-options>
+
+<div>
+  <app-loader *ngIf="showLoader"></app-loader>
+
+  <div *ngIf="!showLoader" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+    <h4 *ngIf="isDepartEmployeeRoute">"{{allEmployeeList[0].departmentName}}" department employee</h4>
+    <table style="align-items: center;">
+      <tr>
+        <th>S. No.</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Employee Type</th>
+        <th>Department</th>
+        <th>Action</th>
+      </tr>
+      <tr *ngFor="let user of allEmployeeList; let i=index">
+        <td> {{i+1}} </td>
+        <td>{{user.name}} </td>
+        <td> {{user.email}} </td>
+        <td>{{user.phone}} </td>
+        <td *ngIf="user.employeeType == 0">Employee</td>
+        <td *ngIf="user.employeeType == 1">Admin</td>
+        <td *ngIf="user.employeeType == 2"><b>Super Admin</b></td>
+        <td>{{user.departmentName}} </td>
+        <td><button *ngIf="!(user.employeeType == 2); else sAdmin" (click)="assignTask(user)">Assign Task</button></td>
+        <ng-template #sAdmin>
+          <td style="color: red;">Connot Assign Task to Super Admin</td>
+        </ng-template>
+      </tr>
+    </table>
+
+  </div>
+
+</div>
